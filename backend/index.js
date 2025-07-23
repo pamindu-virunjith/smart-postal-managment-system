@@ -5,6 +5,7 @@ import userRouter from './router/userRouter.js';
 import authjwt from './middleware/auth.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import parcelRouter from './router/parcelRouter.js';
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 app.use(authjwt)
 
 app.use("/api/user", userRouter);
+app.use("/api/parcel", parcelRouter);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

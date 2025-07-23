@@ -25,7 +25,7 @@ function LoginPage(){
                 navigate("/admin");
             }
             else {
-                navigate("/");
+                navigate("/home");
             }
                
         }).catch((error) => {
