@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 // Connect to MongoDB
 
-mongoose.connect(process.env.MONGO_URL).then
+mongoose.connect("mongodb+srv://admin:123@cluster0.vaznqp4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then
 (() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {

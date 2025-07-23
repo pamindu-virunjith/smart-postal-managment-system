@@ -61,8 +61,8 @@ export default function ParcelPage() {
                             <tr key={index} className="text-center border-b cursor-pointer hover:bg-gray-100">
                                 <td className="p-2">{parcel.parcelID}</td>
                                 <td className="p-2">{parcel.name}</td>
-                                <td className="p-2">Rs.{parcel.NIC}</td>
-                                <td className="p-2">Rs.{parcel.details}</td>
+                                <td className="p-2">{parcel.NIC}</td>
+                                <td className="p-2">{parcel.details}</td>
                                 
                                 <td className="p-2">  
                                     <div className="w-full h-full flex justify-center gap-2">
