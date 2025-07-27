@@ -3,31 +3,20 @@ import './App.css'
 import LoginPage from './pages/loginPage'
 import { Toaster } from 'react-hot-toast'
 import RegisterPage from './pages/registerPage'
-import HomePage from './pages/homePage'
 import AdminPage from './pages/adminPage'
-import Header from './components/Header'
-import OrdersPage from './pages/OrdersPage'
-import AboutPage from './pages/AboutPage'
-import Footer from './components/Footer'
+import Home from './pages/Home'
 
 function App() {
   
   return (
     <BrowserRouter>
     <Toaster position="top-center" />
-      <Header/>
-
       <Routes path="/*">
-        <Route path="/" element= {<LoginPage />} />
-        <Route path="/home/*" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/admin/*" element={<AdminPage />} />
-        <Route path="/about" element={<AboutPage/>} />
-        <Route path="/orders" element={<OrdersPage/>} />
+        <Route path="/*" element={<Home/>} />
+        <Route path="/login" element= {<LoginPage/>} />
+        <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/admin/*" element={<AdminPage/>} />
       </Routes>
-
-      <Footer/>
-
     </BrowserRouter>
   )
 }
