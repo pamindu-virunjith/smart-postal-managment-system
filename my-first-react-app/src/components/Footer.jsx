@@ -1,7 +1,28 @@
 import React from 'react';
+import { useState } from 'react';
+import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from 'react-icons/bi';
 
-const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
+
+const Footer = () => {
+
+  const [email, setEmail] = useState('');
   const currentYear = new Date().getFullYear();
+
+
+  const handleSignUp = () => {
+    if (email.trim()) {
+      alert(`Thank you! We'll send updates to: ${email}`);
+      setEmail('');
+    } else {
+      alert('Please enter your email address');
+    }
+  };
+
+  const handleKeyPress = (e, action) => {
+    if (e.key === 'Enter') {
+      action();
+    }
+  };
 
   const handleSocialClick = (platform) => {
     alert(`Navigate to ${platform} page`);
@@ -29,7 +50,7 @@ const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyPress={(e) => handleKeyPress(e, handleSignUp)}
-              className="flex-1 px-4 py-3 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="flex-1 px-4 py-3 bg-white/90 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-400 "
             />
             <button
               onClick={handleSignUp}
@@ -47,41 +68,41 @@ const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
           <div className="grid md:grid-cols-4 gap-8">
             
             {/* Company Info */}
-            <div className="md:col-span-1">
+            <div className="text-center md:col-span-1">
               <div className="text-2xl font-bold text-pink-300 mb-4">LOGO</div>
               <p className="text-purple-200 mb-4">
                 Your trusted partner for reliable mail and parcel tracking services across Sri Lanka and beyond.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex justify-center space-x-4">
                 <button 
                   onClick={() => handleSocialClick('Facebook')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold">f</span>
+                  <span className="text-sm font-bold"><BiLogoFacebook className='text-2xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Twitter')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold">T</span>
+                  <span className="text-sm font-bold"><BiLogoTwitter className='text-2xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Instagram')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold">IG</span>
+                  <span className="text-sm font-bold"><BiLogoInstagram className='text-2xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('LinkedIn')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold">in</span>
+                  <span className="text-sm font-bold"><BiLogoLinkedin className='text-2xl'/></span>
                 </button>
               </div>
             </div>
 
             {/* Quick Links */}
-            <div>
+            <div className='text-center'>
               <h3 className="text-lg font-semibold text-pink-200 mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
@@ -128,7 +149,7 @@ const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
             </div>
 
             {/* Support */}
-            <div>
+            <div className='text-center'>
               <h3 className="text-lg font-semibold text-pink-200 mb-4">Support</h3>
               <ul className="space-y-2">
                 <li>
@@ -175,11 +196,11 @@ const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
             </div>
 
             {/* Contact Info */}
-            <div>
-              <h3 className="text-lg font-semibold text-pink-200 mb-4">Contact Info</h3>
+            <div className='text-center md:text-left'>
+              <h3 className="text-center text-lg font-semibold text-pink-200 mb-4">Contact Info</h3>
               <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
+                <div className="flex justify-center md:justify-start items-start space-x-3">
+                  <div className="hidden md:block w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
                   <div>
                     <p className="text-purple-200 text-sm">Address</p>
                     <p className="text-white">Department of Posts
@@ -188,22 +209,22 @@ const Footer = ({ email, setEmail, handleSignUp, handleKeyPress }) => {
 
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
+                <div className="flex justify-center md:justify-start items-start space-x-3">
+                  <div className="hidden md:block w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
                   <div>
                     <p className="text-purple-200 text-sm">Phone</p>
                     <p className="text-white"> +94 112 321 201 <br/>General Inquiries </p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
+                <div className="flex justify-center md:justify-start items-start space-x-3">
+                  <div className="hidden md:block w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
                   <div>
                     <p className="text-purple-200 text-sm">Email</p>
                     <p className="text-white">info@slpost.gov.lk<br/>customerservice@slpost.gov.lk</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
+                <div className="flex justify-center md:justify-start items-start space-x-3">
+                  <div className="hidden md:block w-5 h-5 bg-pink-500 rounded-full flex-shrink-0 mt-0.5"></div>
                   <div>
                     <p className="text-purple-200 text-sm">Hours</p>
                     <p className="text-white">24/7 Customer Support</p>
