@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const [trackingNumber, setTrackingNumber] = useState('');
@@ -7,7 +8,7 @@ const HomePage = () => {
     if (trackingNumber.trim()) {
       alert(`Searching for tracking number: ${trackingNumber}`);
     } else {
-      alert('Please enter a tracking number');
+      toast.error("Please enter a Tracking Number!!!")
     }
   };
 
@@ -50,7 +51,7 @@ const HomePage = () => {
               />
               <button
                 onClick={handleSearch}
-                className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 text-lg font-semibold rounded-r-lg transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-pink-400 shadow-lg hover:shadow-xl transform "
+                className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 text-lg font-semibold rounded-r-lg transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-pink-400 shadow-lg hover:shadow-xl transform cursor-pointer"
               >
                 Search
               </button>

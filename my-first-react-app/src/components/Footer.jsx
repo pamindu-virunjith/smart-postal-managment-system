@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from 'react-icons/bi';
 
 
@@ -14,7 +15,7 @@ const Footer = () => {
       alert(`Thank you! We'll send updates to: ${email}`);
       setEmail('');
     } else {
-      alert('Please enter your email address');
+      toast.error('Please enter your email address');
     }
   };
 
@@ -54,7 +55,7 @@ const Footer = () => {
             />
             <button
               onClick={handleSignUp}
-              className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 font-semibold rounded-r-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 font-semibold rounded-r-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
             >
               Sign Up
             </button>
@@ -78,25 +79,25 @@ const Footer = () => {
                   onClick={() => handleSocialClick('Facebook')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoFacebook className='text-3xl'/></span>
+                  <span className="text-sm font-bold cursor-pointer"><BiLogoFacebook className='text-3xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Twitter')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoTwitter className='text-2xl'/></span>
+                  <span className="text-sm font-bold cursor-pointer"><BiLogoTwitter className='text-2xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Instagram')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoInstagram className='text-3xl'/></span>
+                  <span className="text-sm font-bold cursor-pointer"><BiLogoInstagram className='text-3xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('LinkedIn')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoLinkedin className='text-2xl'/></span>
+                  <span className="text-sm font-bold cursor-pointer"><BiLogoLinkedin className='text-2xl'/></span>
                 </button>
               </div>
             </div>
@@ -108,7 +109,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Track Package')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Track Package
                   </button>
@@ -116,7 +117,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Shipping Rates')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Shipping Rates
                   </button>
@@ -124,7 +125,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Service Areas')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Service Areas
                   </button>
@@ -132,7 +133,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Delivery Options')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Delivery Options
                   </button>
@@ -140,7 +141,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Business Solutions')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Business Solutions
                   </button>
@@ -155,7 +156,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Help Center')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Help Center
                   </button>
@@ -163,7 +164,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Contact Us')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Contact Us
                   </button>
@@ -171,7 +172,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('FAQs')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     FAQs
                   </button>
@@ -179,7 +180,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Live Chat')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Live Chat
                   </button>
@@ -187,7 +188,7 @@ const Footer = () => {
                 <li>
                   <button 
                     onClick={() => handleLinkClick('Report Issue')}
-                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200"
+                    className="text-purple-200 hover:text-pink-300 transition-colors duration-200 cursor-pointer"
                   >
                     Report Issue
                   </button>
