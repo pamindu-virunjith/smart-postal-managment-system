@@ -78,7 +78,7 @@ const Footer = () => {
                   onClick={() => handleSocialClick('Facebook')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoFacebook className='text-2xl'/></span>
+                  <span className="text-sm font-bold"><BiLogoFacebook className='text-3xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Twitter')}
@@ -90,7 +90,7 @@ const Footer = () => {
                   onClick={() => handleSocialClick('Instagram')}
                   className="w-10 h-10 bg-purple-700 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors duration-200"
                 >
-                  <span className="text-sm font-bold"><BiLogoInstagram className='text-2xl'/></span>
+                  <span className="text-sm font-bold"><BiLogoInstagram className='text-3xl'/></span>
                 </button>
                 <button 
                   onClick={() => handleSocialClick('LinkedIn')}

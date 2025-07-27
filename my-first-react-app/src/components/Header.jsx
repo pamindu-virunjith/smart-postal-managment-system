@@ -20,7 +20,7 @@ const Header = () => {
           <button 
             onClick={() => navigate("/home")}
             className={`hover:text-pink-500 transition-colors duration-200 text-lg font-medium cursor-pointer focus:outline-none ${
-              path == "/home" 
+              path == "/home" || path == "/"
                 ? 'text-pink-300 border-b-2 border-pink-300 pb-1' 
                 : 'text-white hover:border-b-2 hover:border-pink-300 hover:pb-1'
             }`}
