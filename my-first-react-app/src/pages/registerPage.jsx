@@ -1,12 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
+    const location = useLocation();
+    const initialEmail = location.state?.email || "";
+
     const [formData, setFormData] = useState({
         name: "",
-        email: "",
+        email: initialEmail,
         address: "",
         phoneNumber: "",
         password: "",
@@ -32,7 +35,7 @@ function RegisterPage() {
             phoneNumber: formData.phoneNumber,
             password: formData.password
         })
-        .then((res) => {
+        .then(() => {
             toast.success("Registration successful!");
             navigate("/login");
         })

@@ -87,3 +87,26 @@ export function loginUser(req, res){
         }
     })
 }
+
+// This function gets the user details by email
+export function getUserByEmail(req, res) {
+    const email = req.params.email;
+
+    User.findOne({
+        email: email
+    }).then((user) => {
+        if (user == null) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        } else {
+            res.json(user);
+        }
+    }).catch((err) => {
+        console.error("Error fetching user:", err);
+        res.status(500).json({
+            message: "Error fetching user",
+            error: err.message
+        });
+    })
+};

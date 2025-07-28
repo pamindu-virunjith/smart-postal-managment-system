@@ -1,22 +1,34 @@
+import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 
 const Footer = () => {
 
   const [email, setEmail] = useState('');
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
 
   const handleSignUp = () => {
-    if (email.trim()) {
-      alert(`Thank you! We'll send updates to: ${email}`);
-      setEmail('');
-    } else {
-      toast.error('Please enter your email address');
-    }
+    axios.get(import.meta.env.VITE_BACKEND_URL + `/api/user/email/${email}`)
+      .then(response => {
+        if (response.data) {
+          // Pass email to login page via state
+          navigate('/login', { state: { email } });
+          setEmail('');
+        } else {
+          // User not found, navigate to register page
+          navigate('/register', { state: { email } });
+        }
+      })
+      .catch(error => {
+        // On error, also navigate to register page
+        navigate('/register', { state: { email } });
+        console.log(error)
+      });
   };
 
   const handleKeyPress = (e, action) => {

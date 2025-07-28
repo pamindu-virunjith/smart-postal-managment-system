@@ -99,3 +99,29 @@ export function updateParcel(req, res){
         });
     });
 }
+
+// search parcel by ID
+export function searchParcel(req, res) {
+    if (req.user == null) {
+        res.status(403).json({
+            message: "You need to login first"
+        });
+        return;
+    }
+
+    Parcel.findOne({ parcelID: req.params.parcelID })
+        .then((parcel) => {
+            if (!parcel) {
+                return res.status(404).json({
+                    message: "Parcel not found !!!"
+                });
+            }
+            res.json(parcel);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Error retrieving parcel",
+                error: err.message
+            });
+        });
+}

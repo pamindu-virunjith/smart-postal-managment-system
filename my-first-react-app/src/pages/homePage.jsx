@@ -1,15 +1,33 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { BiCross } from 'react-icons/bi';
+import { MdClose } from 'react-icons/md';
 
 const HomePage = () => {
   const [trackingNumber, setTrackingNumber] = useState('');
+  const [parcel, setParcel] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleSearch = () => {
-    if (trackingNumber.trim()) {
-      alert(`Searching for tracking number: ${trackingNumber}`);
-    } else {
-      toast.error("Please enter a Tracking Number!!!")
-    }
+    //searching the tracking number
+    axios.get(import.meta.env.VITE_BACKEND_URL + `/api/parcel/${trackingNumber}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    .then(response => {
+      // Handle successful response
+      console.log("Parcel found:", response.data);
+      setParcel(response.data);
+      setShowModal(true);
+      toast.success("Parcel found!");
+    })
+    .catch(error => {
+      // Handle error
+      console.error("Error fetching parcel:", error);
+      toast.error("Parcel not found");
+    });
   };
 
   const handleKeyPress = (e) => {
@@ -17,9 +35,36 @@ const HomePage = () => {
       handleSearch();
     }
   };
+  const closeModal = () => {
+  setShowModal(false);
+  setParcel(null);
+  setTrackingNumber("")
+  };
 
   return (
+  
     <div className="relative min-h-screen">
+        {showModal && parcel && (
+  <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-lg relative">
+      <button
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
+        onClick={closeModal}
+      >
+        <MdClose className="text-3xl text-red-600 cursor-pointer" />
+      </button>
+      <h2 className="text-2xl text-center font-bold mb-4 text-pink-600">Parcel Details</h2>
+      <div className="space-y-2 flex flex-col justify-center items-center">
+       {/* show the details of the parcel */}
+       <div>
+          <div className='flex '><div className='w-[70px] font-bold'>Name:</div> <div>{parcel.name}</div></div>
+       <div className='flex '><div className='w-[70px] font-bold'>NIC:</div> <div>{parcel.NIC}</div></div>
+       <div className='flex '><div className='w-[70px] font-bold'>Details:</div> <div>{parcel.details}</div></div>
+       </div>
+      </div>
+    </div>
+  </div>
+)}
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

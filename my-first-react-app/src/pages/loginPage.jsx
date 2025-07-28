@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function LoginPage(){
-
-    const [email, setEmail] = useState("")
+    const location = useLocation();
+    const initialEmail = location.state?.email || "";
+    const [email, setEmail] = useState(initialEmail);
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ function LoginPage(){
         }).then((response) => {
             toast.success("Login successful!");
             localStorage.setItem("token", response.data.token);
+            // console.log("token", response.data.token);
 
             const user = response.data.user;
             if(user.role =="admin"){
@@ -54,9 +56,26 @@ function LoginPage(){
                     <div className="w-full h-1/5 flex  justify-center">
                         <h1 className='text-6xl font-bold text-green-400 font-mono italic mb-6'>Login</h1>
                     </div>
-                    
+                    {/* const handleSignUp = () => {
+                        //search user by email
+                        axios.get(import.meta.env.VITE_BACKEND_URL + `/api/user/email/${email}`)
+                        .then(response => {
+                          if (response.data) {
+                            // Pass email to login page via state
+                            navigate('/login', { state: { email } });
+                          } else {
+                            navigate('/register', { state: { email } });
+                          }
+                        })
+                        .catch(error => {
+                          console.error('Error fetching user:', error);
+                          toast.error('Error fetching user');
+                        });
+                      }; */}
+                                        
                     <input onChange={(e) => setEmail(e.target.value)}
-                            type="text" 
+                            type="text"
+                            value={email}
                             placeholder='Email' 
                             className='border border-white rounded-xl text-center bg-white mb-4' style={{ width: '400px', height: '50px' }}
                     />
