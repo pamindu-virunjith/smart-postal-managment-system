@@ -1,23 +1,27 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function UsersPage() {
     const [user, setUser] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     //get all users
-    axios.get(import.meta.env.VITE_BACKEND_URL+ "/api/user/",{
-        headers:{
-            "Authorization": "Bearer " + localStorage.getItem('token') 
-        }
-    })
-    .then((response) => {
+    useEffect(() => {
+    axios
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/user/", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
         setUser(response.data);
         setIsLoading(false);
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error fetching users:", error);
-    });
+        setIsLoading(false);
+      });
+  }, []);
 
 return (
   <>

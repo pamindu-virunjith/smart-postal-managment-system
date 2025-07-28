@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
 import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import { VscLoading } from "react-icons/vsc";

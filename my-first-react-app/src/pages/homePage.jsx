@@ -10,6 +10,10 @@ const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleSearch = () => {
+    if (!trackingNumber.trim()) {
+      toast.error("Please enter a tracking number");
+      return; // Stop the function if input is invalid
+    }
     //searching the tracking number
     axios.get(import.meta.env.VITE_BACKEND_URL + `/api/parcel/${trackingNumber}`, {
       headers: {
@@ -27,6 +31,7 @@ const HomePage = () => {
       // Handle error
       console.error("Error fetching parcel:", error);
       toast.error("Parcel not found");
+      setTrackingNumber('')
     });
   };
 
