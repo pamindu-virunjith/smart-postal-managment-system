@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,11 @@ const Footer = () => {
 
 
   const handleSignUp = () => {
+    if(email == ''){
+      toast.error("Please Enter your Email");
+      return;
+    }
+
     axios.get(import.meta.env.VITE_BACKEND_URL + `/api/user/email/${email}`)
       .then(response => {
         if (response.data) {
