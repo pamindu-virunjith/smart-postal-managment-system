@@ -110,3 +110,28 @@ export function getUserByEmail(req, res) {
         });
     })
 };
+
+
+// get all users
+export function getAllUsers(req, res) {
+    if (req.user == null) {
+        return res.status(403).json({
+            message: "You need to login first"
+        });
+    }
+    if (req.user.role != "admin") {
+        return res.status(403).json({
+            message: "You are not authorized to view all users"
+        });
+    }
+
+    User.find().then((users) => {
+        res.json(users);
+    }).catch((err) => {
+        console.error("Error fetching users:", err);
+        res.status(500).json({
+            message: "Error fetching users",
+            error: err.message
+        });
+    });
+}

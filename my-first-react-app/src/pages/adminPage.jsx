@@ -7,6 +7,7 @@ import '../App.css';
 import ParcelPage from "./admin/parcel";
 import AddParcel from "./admin/addParcel";
 import EditParcel from "./admin/editParcel";
+import UsersPage from "./admin/usersPage";
 
 
 export default function AdminPage() {
@@ -25,7 +26,7 @@ export default function AdminPage() {
 
             <div className="h-full bg-white w-[calc(100vw-300px)] rounded-xl shadow-lg p-4 overflow-y-auto">
                 <Routes path="/*">
-                    <Route path="/users" element={<div>User</div>} />
+                    <Route path="/users" element={<UsersPage/>} />
                     <Route path="/parcel" element={<ParcelPage />} />
                     <Route path="/orders" element={<div>Orders</div>} />
                     <Route path="/addparcel" element={<AddParcel />} />
