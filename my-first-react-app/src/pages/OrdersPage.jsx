@@ -6,6 +6,8 @@ const OrdersPage = () => {
   const navigate =useNavigate();
 
   const [orders,setOrders] = useState([]);
+  
+
 
   axios.get(import.meta.env.VITE_BACKEND_URL + "/api/parcel", {
     headers: {
@@ -19,62 +21,13 @@ const OrdersPage = () => {
     console.error("Error fetching orders:", error);
   });
 
-  // const [orders] = useState([
-  //   {
-  //     id: '1',
-  //     trackingNumber: 'TN123456789',
-  //     status: 'In Transit',
-  //     estimatedDelivery: '2025-07-28',
-  //     carrier: 'FedEx',
-  //     description: 'Electronics Package',
-  //     progress: 75
-  //   },
-  //   {
-  //     id: '2',
-  //     trackingNumber: 'TN987654321',
-  //     status: 'Delivered',
-  //     estimatedDelivery: '2025-07-25',
-  //     carrier: 'UPS',
-  //     description: 'Clothing Items',
-  //     progress: 100
-  //   },
-  //   {
-  //     id: '3',
-  //     trackingNumber: 'TN456789123',
-  //     status: 'Processing',
-  //     estimatedDelivery: '2025-07-30',
-  //     carrier: 'DHL',
-  //     description: 'Books and Documents',
-  //     progress: 25
-  //   },
-  //   {
-  //     id: '4',
-  //     trackingNumber: 'TN789123456',
-  //     status: 'Out for Delivery',
-  //     estimatedDelivery: '2025-07-26',
-  //     carrier: 'USPS',
-  //     description: 'Home Accessories',
-  //     progress: 90
-  //   }
-  // ]);
-
-  // const getStatusColor = (status) => {
-  //   switch (status) {
-  //     case 'Delivered': return 'bg-green-500/20 text-green-300 border-green-500/30';
-  //     case 'In Transit': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-  //     case 'Out for Delivery': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-  //     case 'Processing': return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
-  //     default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
-  //   }
-  // };
+  
 
   const handleTrackNew = () => {
     navigate("/home")
   };
 
-  // const handleViewDetails = (trackingNumber) => {
-  //   alert(`View details for: ${trackingNumber}`);
-  // };
+  
 
   return (
     <div className="relative min-h-screen">
@@ -120,11 +73,11 @@ const OrdersPage = () => {
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Tracking Number</th>
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Name</th>
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Description</th>
-                      {/* <th className="px-4 py-4 text-left text-pink-300 font-semibold">Carrier</th> */}
-                      {/* <th className="px-4 py-4 text-left text-pink-300 font-semibold">Status</th> */}
-                      {/* <th className="px-4 py-4 text-left text-pink-300 font-semibold">Progress</th> */}
-                      {/* <th className="px-4 py-4 text-left text-pink-300 font-semibold">Est. Delivery</th> */}
-                      {/* <th className="px-4 py-4 text-left text-pink-300 font-semibold">Actions</th> */}
+                      
+                      <th className="px-4 py-4 text-left text-pink-300 font-semibold">Status</th>
+                      
+                      <th className="px-4 py-4 text-left text-pink-300 font-semibold">Est. Delivery</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -133,29 +86,8 @@ const OrdersPage = () => {
                         <td className="px-4 py-4 font-mono text-sm text-white">{order.parcelID}</td>
                         <td className="px-4 py-4 text-purple-100">{order.name}</td>
                         <td className="px-4 py-4 text-purple-100">{order.details}</td>
-                        {/* <td className="px-4 py-4">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(order.status)}`}>
-                            {order.status}
-                          </span>
-                        </td> */}
-                        {/* <td className="px-4 py-4">
-                          <div className="w-full bg-white/20 rounded-full h-2">
-                            <div 
-                              className="bg-gradient-to-r from-pink-400 to-purple-500 h-2 rounded-full transition-all duration-500"
-                              style={{width: `${order.progress}%`}}
-                            ></div>
-                          </div>
-                          <span className="text-xs text-purple-200 mt-1">{order.progress}%</span>
-                        </td> */}
-                        {/* <td className="px-4 py-4 text-purple-100">{order.estimatedDelivery}</td> */}
-                        {/* <td className="px-4 py-4">
-                          <button 
-                            onClick={() => handleViewDetails(order.trackingNumber)}
-                            className="text-pink-300 hover:text-pink-400 font-medium transition-colors duration-200"
-                          >
-                            View Details
-                          </button>
-                        </td> */}
+                        <td className="px-4 py-4 text-purple-100">{order.status}</td>
+                        <td className="px-4 py-4 text-purple-100">{new Date(order.estimateDate).toLocaleDateString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -171,9 +103,6 @@ const OrdersPage = () => {
                         <p className="font-mono text-sm text-white">{order._id}</p>
                         <p className="text-purple-100">{order.details}</p>
                       </div>
-                      {/* <span className={`px-2 py-1 rounded text-xs font-medium border ${getStatusColor(order.status)}`}>
-                        {order.status}
-                      </span> */}
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
@@ -184,18 +113,14 @@ const OrdersPage = () => {
                         <span className="text-purple-200">Name:</span>
                         <span className="text-white">{order.name}</span>
                       </div>
-                      {/* <div className="w-full bg-white/20 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-pink-400 to-purple-500 h-2 rounded-full"
-                          style={{width: `${order.progress}%`}}
-                        ></div>
-                      </div> */}
-                      {/* <button 
-                        onClick={() => handleViewDetails(order.trackingNumber)}
-                        className="w-full text-pink-300 hover:text-pink-400 font-medium text-sm mt-2"
-                      >
-                        View Details
-                      </button> */}
+                      <div className="flex justify-between text-sm">
+                        <span className="text-purple-200">Status:</span>
+                        <span className="text-white">{order.status}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-purple-200">Es.Date:</span>
+                        <span className="text-white">{new Date(order.estimateDate).toLocaleDateString()}</span>
+                      </div>
                     </div>
                   </div>
                 ))}

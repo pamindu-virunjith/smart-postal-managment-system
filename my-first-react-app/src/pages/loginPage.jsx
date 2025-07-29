@@ -40,6 +40,7 @@ function LoginPage(){
 
     return(
         <div className='w-full bg-white h-screen flex'>
+            
             <div className="w-[50%] h-full flex items-center justify-center">
                 <div className="w-full h-full flex flex-col">
                     <div className="w-full h-1/3 flex items-center justify-center">
@@ -100,7 +101,7 @@ function LoginPage(){
                 </div>
             </div>
 
-            
+       
         </div>
     )
 } 

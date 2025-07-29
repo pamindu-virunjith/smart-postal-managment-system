@@ -51,8 +51,10 @@ export default function ParcelPage() {
                     <tr className="text-center ">
                         <th className="p-2">Parcel ID</th>
                         <th className="p-2">Name</th>
-                        <th className="p-2">NIC</th>
+                        <th className="p-2">E-mail</th>
                         <th className="p-2">Details</th>
+                        <th className="p-2">Estimate Date</th>
+                        <th className="p-2">Status</th>
                         <th className="p-2">Action</th>
                     </tr>
                 </thead>
@@ -62,8 +64,10 @@ export default function ParcelPage() {
                             <tr key={index} className="text-center border-b cursor-pointer hover:bg-gray-100">
                                 <td className="p-2">{parcel.parcelID}</td>
                                 <td className="p-2">{parcel.name}</td>
-                                <td className="p-2">{parcel.NIC}</td>
+                                <td className="p-2">{parcel.email}</td>
                                 <td className="p-2">{parcel.details}</td>
+                                <td className="p-2">{new Date(parcel.estimateDate).toLocaleDateString()}</td>
+                                <td className="p-2">{parcel.status}</td>
                                 
                                 <td className="p-2">  
                                     <div className="w-full h-full flex justify-center gap-2">

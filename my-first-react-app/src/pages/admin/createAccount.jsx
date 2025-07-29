@@ -1,21 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
 
-function RegisterPage() {
+export default function CreateAdminAccount() {
     const location = useLocation();
     const initialEmail = location.state?.email || "";
+    const token = localStorage.getItem("token");
 
     const [formData, setFormData] = useState({
         name: "",
         email: initialEmail,
         address: "",
         phoneNumber: "",
+        role: "",
         password: "",
         confirmPassword: ""
     });
-
+    
     const navigate = useNavigate();
 
     function handleChange(e) {
@@ -23,6 +25,8 @@ function RegisterPage() {
     }
 
     function handleRegister() {
+        console.log("Password:", formData.password);
+        console.log("Confirm:", formData.confirmPassword);
         if (formData.password !== formData.confirmPassword) {
             toast.error("Passwords do not match");
             return;
@@ -32,12 +36,17 @@ function RegisterPage() {
             name: formData.name,
             email: formData.email,
             address: formData.address,
+            role: formData.role,
             phoneNumber: formData.phoneNumber,
             password: formData.password
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(() => {
             toast.success("Registration successful!");
-            navigate("/");
+            navigate("/admin/users");
         })
         .catch((err) => {
             console.error("Registration failed:", err);
@@ -45,25 +54,25 @@ function RegisterPage() {
         });
     }
 
+    function handleClear() {
+        setFormData({
+            name: "",
+            email: "",
+            address: "",
+            phoneNumber: "",
+            role: "", 
+            password: "",
+            confirmPassword: ""
+        });
+    }
+
+
     return (
         <div className='w-full bg-white h-screen flex'>
-            {/* Left Side Image/Welcome */}
-            <div className="w-[50%] h-full flex items-center justify-center">
-                <div className="w-full h-full flex flex-col">
-                    <div className="w-full h-1/3 flex items-center justify-center">
-                        <h1 className="text-pink-500 text-6xl font-mono">Join Us</h1>
-                    </div>
-                    <div className="w-full h-2/3 flex items-center justify-center">
-                        <img className="max-h-full" src="/image-17.webp" alt="Register Background" />
-                    </div>
-                </div>
-            </div>
-
-            {/* Right Side Form */}
-            <div className='w-[50%] h-full flex justify-center items-center'>
+            <div className='w-full h-full flex justify-center items-center'>
                 <div className="w-[500px] h-[650px] backdrop-blur-xl shadow-xl rounded-lg flex flex-col justify-center items-center bg-red-900 p-4">
                     <div className="w-full h-[15%] flex justify-center">
-                        <h1 className='text-5xl font-bold text-green-400 font-mono italic mb-4'>Register</h1>
+                        <h1 className='text-5xl font-bold text-green-400 font-mono italic mb-4'>Create Account</h1>
                     </div>
 
                     {/* Form Fields */}
@@ -87,6 +96,16 @@ function RegisterPage() {
                         className='border border-white rounded-xl text-center bg-white mb-4'
                         style={{ width: '400px', height: '40px' }}
                     />
+                    <select
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        className="w-[400px] h-[40px] border border-gray-500 rounded-xl text-center m-[10px] bg-white mb-4"
+                    >
+                        <option value="" disabled>Select status</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
                     <input name="password" value={formData.password} onChange={handleChange}
                         type="password" placeholder='Password'
                         className='border border-white rounded-xl text-center bg-white mb-4'
@@ -98,7 +117,7 @@ function RegisterPage() {
                         style={{ width: '400px', height: '40px' }}
                     />
 
-                    {/* Submit Button */}
+                    {/* Register Button */}
                     <button onClick={handleRegister}
                         className='bg-blue-500 hover:bg-blue-600 text-white rounded-xl'
                         style={{ marginTop: '10px', width: '400px', height: '45px' }}
@@ -106,17 +125,16 @@ function RegisterPage() {
                         Register
                     </button>
 
-                    {/* Login link */}
-                    <p className='text-white text-base mt-4'>
-                        Already have an account? &nbsp;
-                        <span>
-                            <Link to={"/"} className='cursor-pointer text-lg' style={{color:"yellow", textDecoration: "none"}}>Login</Link>
-                        </span>
-                    </p>
+                    <button
+                        onClick={handleClear}
+                        className="bg-gray-500 hover:bg-gray-600 text-white rounded-xl mt-2"
+                        style={{ width: '400px', height: '45px' }}
+                    >
+                    Clear
+                    </button>
+
                 </div>
             </div>
         </div>
     );
 }
-
-export default RegisterPage;

@@ -11,8 +11,8 @@ const parcelSchema = new mongoose.Schema({
         required: true
     },
    
-    NIC : {
-        type: Number,
+    email : {
+        type: String,
         required: true
     },
     
@@ -20,6 +20,14 @@ const parcelSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    estimateDate : {
+        type: Date,
+        default: Date.now
+    },
+    status: {
+        type: String,
+        default: 'Pending'
+    }
 })
 
 const Parcel = mongoose.model("parcel", parcelSchema);

@@ -14,15 +14,19 @@ export default function EditParcel() {
 
     const [parcelID, setParcelID] = useState(locationData.state.parcelID);
     const [name, setName] = useState(locationData.state.name);
-    const [NIC, setNIC] = useState(locationData.state.NIC);
+    const [email, setEmail] = useState(locationData.state.email);
     const [details, setDetails] = useState(locationData.state.details);
+    const [estimateDate, setEstimateDate] = useState(locationData.state.estimateDate);
+    const [status, setStatus] = useState(locationData.state.status);
 
     async function handleEditParcel() {
         const updatedParcel = {
             parcelID: parcelID,
             name: name,
-            NIC: Number(NIC),
-            details: details
+            email: email,
+            details: details,
+            estimateDate: estimateDate,
+            status: status
         };
 
         const token = localStorage.getItem("token");
@@ -65,11 +69,11 @@ export default function EditParcel() {
                     placeholder="Name"
                 />
                 <input
-                    value={NIC}
-                    onChange={(e) => setNIC(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
-                    type="number"
-                    placeholder="NIC"
+                    type="email"
+                    placeholder="E-mail"
                 />
                 <textarea
                     value={details}
@@ -77,6 +81,22 @@ export default function EditParcel() {
                     className="w-[400px] h-[100px] border border-gray-500 rounded-xl text-center m-[10px]"
                     placeholder="Details"
                 />
+                <input
+                    value={estimateDate}
+                    onChange={(e) => setEstimateDate(e.target.value)}
+                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    type="date"
+                />
+                <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                >
+                    <option value="" disabled>Select status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
                 <button
                     onClick={handleEditParcel}
                     className="w-[400px] h-[50px] bg-green-500 text-white rounded-xl text-center mt-[20px] cursor-pointer"
