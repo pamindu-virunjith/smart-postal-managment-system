@@ -23,7 +23,7 @@ const Footer = () => {
       .then(response => {
         if (response.data) {
           // Pass email to login page via state
-          navigate('/login', { state: { email } });
+          navigate('/', { state: { email } });
           setEmail('');
         } else {
           // User not found, navigate to register page

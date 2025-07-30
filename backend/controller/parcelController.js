@@ -29,6 +29,14 @@ export function createParcel(req, res){
 }
 
 export function getParcel(req, res){
+
+     if (req.user.role != "admin"){
+        res.status(403).json({
+            message: "You are not authorized to create a parcel"
+        });
+        return;
+    }
+
     Parcel.find(). then(
         (parcel)=>{
             res.json(parcel)
