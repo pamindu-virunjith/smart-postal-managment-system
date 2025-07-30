@@ -1,33 +1,38 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const OrdersPage = () => {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
 
-  const [orders,setOrders] = useState([]);
-  
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const email = user?.email;
 
-
-  axios.get(import.meta.env.VITE_BACKEND_URL + "/api/parcel", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+    if (!email) {
+      console.error("No user email found in localStorage");
+      return;
     }
-  })
-  .then(response => {
-    setOrders(response.data);
-  })
-  .catch(error => {
-    console.error("Error fetching orders:", error);
-  });
 
-  
+    axios.get(import.meta.env.VITE_BACKEND_URL + "/api/parcel", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(response => {
+      // Filter orders by logged-in user's email
+      const filteredOrders = response.data.filter(order => order.email === email);
+      setOrders(filteredOrders);
+    })
+    .catch(error => {
+      console.error("Error fetching orders:", error);
+    });
+  }, []);
 
   const handleTrackNew = () => {
-    navigate("/home")
+    navigate("/home");
   };
-
-  
 
   return (
     <div className="relative min-h-screen">
@@ -73,11 +78,8 @@ const OrdersPage = () => {
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Tracking Number</th>
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Name</th>
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Description</th>
-                      
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Status</th>
-                      
                       <th className="px-4 py-4 text-left text-pink-300 font-semibold">Est. Delivery</th>
-                      
                     </tr>
                   </thead>
                   <tbody>
@@ -100,7 +102,7 @@ const OrdersPage = () => {
                   <div key={order._id} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <p className="font-mono text-sm text-white">{order._id}</p>
+                        <p className="font-mono text-sm text-white">{order.parcelID}</p>
                         <p className="text-purple-100">{order.details}</p>
                       </div>
                     </div>
@@ -159,6 +161,7 @@ const OrdersPage = () => {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </main>

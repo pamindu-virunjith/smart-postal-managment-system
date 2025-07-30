@@ -9,6 +9,7 @@ import AddParcel from "./admin/addParcel";
 import EditParcel from "./admin/editParcel";
 import UsersPage from "./admin/usersPage";
 import CreateAdminAccount from "./admin/createAccount";
+import { VscSignOut } from "react-icons/vsc";
 
 export default function AdminPage() {
 
@@ -16,14 +17,20 @@ export default function AdminPage() {
     const path = location.pathname;
 
     return (
-        <div className='w-full h-screen flex bg-gray-100 p-2'>
-            <div className='h-full w-[300px] bg-red-200 rounded-xl shadow-lg p-4 flex flex-col mr-2'>
-                <Link to ="/admin/users" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/users" ? "bg-red-300" : ""}`} > <FaUsers className="mr-2 text-blue-700"/> Users</Link>
-                <Link to ="/admin/parcel" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/parcel" ? "bg-red-300" : ""}`} > <MdOutlineWarehouse className="mr-2 text-green-500"/> Parcel</Link>
-                <Link to ="/admin/createaccount" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/createaccount" ? "bg-red-300" : ""}`} > <LiaFileInvoiceSolid className="mr-2 text-rose-600"/> Create Account</Link>
+        <div className='w-full h-screen flex bg-gray-100 p-2 '>
+            <div className='h-full w-[300px] bg-red-200 rounded-xl shadow-lg p-4 flex flex-col mr-2 '>
+                <div className="h-[calc(100vw-50px)]">
+                    <Link to ="/admin/users" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/users" ? "bg-red-300" : ""}`} > <FaUsers className="mr-2 text-blue-700"/> Users</Link>
+                    <Link to ="/admin/parcel" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/parcel" ? "bg-red-300" : ""}`} > <MdOutlineWarehouse className="mr-2 text-green-500"/> Parcel</Link>
+                    <Link to ="/admin/createaccount" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/createaccount" ? "bg-red-300" : ""}`} > <LiaFileInvoiceSolid className="mr-2 text-rose-600"/> Create Account</Link>
+                </div>
+                <div className="h-[50px]">
+                    <Link to ="/" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/" ? "bg-red-300" : ""}`} > <VscSignOut className="mr-2 "/> Sign Out</Link>
+                </div>
             </div>
 
-            <div className="h-full bg-white w-[calc(100vw-300px)] rounded-xl shadow-lg p-4 overflow-y-auto">
+            <div className="h-full bg-white w-[calc(100vw-300px)] rounded-xl shadow-lg p-4 overflow-y-auto ">
+                
                 <Routes path="/*">
                     <Route path="/users" element={<UsersPage/>} />
                     <Route path="/parcel" element={<ParcelPage />} />

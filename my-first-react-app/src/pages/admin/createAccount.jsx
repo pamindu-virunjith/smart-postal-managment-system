@@ -127,7 +127,7 @@ export default function CreateAdminAccount() {
 
                     <button
                         onClick={handleClear}
-                        className="bg-gray-500 hover:bg-gray-600 text-white rounded-xl mt-2"
+                        className="bg-gray-500 hover:bg-gray-600 text-white rounded-xl mt-2 mb-3"
                         style={{ width: '400px', height: '45px' }}
                     >
                     Clear

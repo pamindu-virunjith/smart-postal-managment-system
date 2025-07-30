@@ -11,32 +11,38 @@ function LoginPage(){
     const navigate = useNavigate();
 
     function handleLogin() {
-        console.log("Email:", email);
-        console.log("Password:", password);
-        
-         axios.post(import.meta.env.VITE_BACKEND_URL+"/api/user/login", {
+        // console.log("Email:", email);
+        // console.log("Password:", password);
+
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/api/user/login", {
             email: email,
             password: password
-        }).then((response) => {
+        })
+        .then((response) => {
             toast.success("Login successful!");
-            localStorage.setItem("token", response.data.token);
-            // console.log("token", response.data.token);
 
+            // Extract token and user object
+            const token = response.data.token;
             const user = response.data.user;
-            if(user.role =="admin"){
-                navigate("/admin");
-            }
-            else {
-                navigate("/home");
-            }
-               
-        }).catch((error) => {
-            console.error("Login failed:", error);
-            toast.error(error.response.data.message || "Login failed. Please try again.");
-           
-        } )
 
+            // Save token and user email to localStorage
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify({ email: user.email }));
+
+            // Redirect based on user role
+            if (user.role === "admin") {
+            navigate("/admin");
+            } else {
+            navigate("/home");
+            }
+
+        })
+        .catch((error) => {
+            console.error("Login failed:", error);
+            toast.error(error.response?.data?.message || "Login failed. Please try again.");
+        });
     }
+
 
     return(
         <div className='w-full bg-white h-screen flex'>
