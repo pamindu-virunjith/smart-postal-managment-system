@@ -27,14 +27,14 @@ export default function AdminPage() {
             setStatus("unauthenticated");
             window.location.href = "/"
         }else{
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/",{
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/user/me",{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
-            }).then((reponse)=>{
-                if(reponse.data.role !== "admin"){
+            }).then((response)=>{
+                if(response.data.role !== "admin"){
                     setStatus("unauthorized");
-                    window.location.href = "/";
+                    window.location.href = "/home";
                     toast.error("You are not authorized to access this page");
                 }else{
                     setStatus("authenticated");

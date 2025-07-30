@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers, getUserByEmail, loginUser, saveUser } from '../controller/usercontrolle.js';
+import { getAllUsers, getUser, getUserByEmail, loginUser, saveUser } from '../controller/usercontrolle.js';
 
 // Create a new router for user-related routes
 const userRouter = express.Router();
@@ -11,5 +11,6 @@ userRouter.post('/',saveUser)
 userRouter.post('/login', loginUser)
 userRouter.get('/email/:email', getUserByEmail)
 userRouter.get('/', getAllUsers)
+userRouter.get('/me',getUser)
 
 export default userRouter;

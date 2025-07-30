@@ -19,7 +19,7 @@ function UsersPage() {
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
-        setIsLoading(false);
+        setIsLoading(true);
       });
   }, []);
 
@@ -45,7 +45,7 @@ return (
                   className="bg-[#e3f2fd] shadow-lg rounded-xl p-3 flex items-center "
                 >
                   <img
-                    src="../../../public/admin.png"
+                    src="../../../admin.png"
                     alt="admin"
                     className="w-16 h-16 rounded-full mr-4 border-4 border-[#1976d2] bg-white"
                   />
@@ -79,7 +79,7 @@ return (
                   className="bg-[#f1f8e9] shadow-lg rounded-xl p-3 flex items-center"
                 >
                   <img
-                    src="../../../public/user.png"
+                    src="../../../user.png"
                     alt="User"
                     className="w-16 h-16 rounded-full mr-4 border-4 border-[#388e3c] bg-white"
                   />

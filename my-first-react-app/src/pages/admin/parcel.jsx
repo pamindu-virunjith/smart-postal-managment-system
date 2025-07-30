@@ -15,7 +15,12 @@ export default function ParcelPage() {
     useEffect(() => {
         if (!loaded){
              // Fetch products from the backend
-            axios.get(import.meta.env.VITE_BACKEND_URL+"/api/parcel")
+            axios.get(import.meta.env.VITE_BACKEND_URL+"/api/parcel",
+            {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
             .then((response) => {
                 console.log(response.data);
                 setParcels(response.data);
