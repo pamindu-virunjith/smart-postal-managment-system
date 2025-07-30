@@ -102,7 +102,7 @@ export default function CreateAdminAccount() {
                         onChange={handleChange}
                         className="w-[400px] h-[40px] border border-gray-500 rounded-xl text-center m-[10px] bg-white mb-4"
                     >
-                        <option value="" disabled>Select status</option>
+                        <option value="" disabled>Select Role</option>
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
                     </select>
