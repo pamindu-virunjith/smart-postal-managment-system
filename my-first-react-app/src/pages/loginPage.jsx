@@ -2,14 +2,18 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { VscLoading } from "react-icons/vsc";
+import React from "react";
 
 function LoginPage(){
     const location = useLocation();
     const initialEmail = location.state?.email || "";
     const [email, setEmail] = useState(initialEmail);
     const [password, setPassword] = useState("")
+    const [showSpinner, setShowSpinner] = useState(false);
     const navigate = useNavigate();
 
+    
     function handleLogin() {
         // console.log("Email:", email);
         // console.log("Password:", password);
@@ -41,7 +45,15 @@ function LoginPage(){
             console.error("Login failed:", error);
             toast.error(error.response?.data?.message || "Login failed. Please try again.");
         });
+
+        
     }
+
+    const handleClick = () => {
+        setShowSpinner(true);
+        handleLogin();
+    
+    };
 
 
     return(
@@ -62,24 +74,7 @@ function LoginPage(){
                 <div className="w-[450px] h-[600px] backdrop-blur-xl shadow-xl rounded-lg flex flex-col justify-center items-center bg-red-900">
                     <div className="w-full h-1/5 flex  justify-center">
                         <h1 className='text-6xl font-bold text-green-400 font-mono italic mb-6'>Login</h1>
-                    </div>
-                    {/* const handleSignUp = () => {
-                        //search user by email
-                        axios.get(import.meta.env.VITE_BACKEND_URL + `/api/user/email/${email}`)
-                        .then(response => {
-                          if (response.data) {
-                            // Pass email to login page via state
-                            navigate('/login', { state: { email } });
-                          } else {
-                            navigate('/register', { state: { email } });
-                          }
-                        })
-                        .catch(error => {
-                          console.error('Error fetching user:', error);
-                          toast.error('Error fetching user');
-                        });
-                      }; */}
-                                        
+                    </div>              
                     <input onChange={(e) => setEmail(e.target.value)}
                             type="text"
                             value={email}
@@ -91,11 +86,16 @@ function LoginPage(){
                             placeholder='Password' 
                             className='border border-white rounded-xl text-center bg-white mb-6'style={{ width: '400px', height: '50px' }}
                     />
-                    <button onClick={handleLogin}
+                    <button onClick={handleClick}
                         className='bg-blue-500 hover:bg-blue-600 text-white rounded-xl mb-2' style={{ marginTop: '20px', width: '400px', height: '50px' }}
                     >
                         Sign In
                     </button>
+                    {showSpinner && (
+                        <div className="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-white/60">
+                            <VscLoading className="text-[60px] animate-spin" />
+                        </div>
+                    )}
                     {/* Register */}
                     <p className='text-white text-base mt-4'>
                             Don't have an account?
