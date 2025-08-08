@@ -65,6 +65,42 @@ return (
               ))}
           </div>
         </div>
+
+        <div>
+          <h1 className="mt-[100px] text-2xl font-bold text-center my-4 text-[#3523d8]">
+            Postman Accounts
+          </h1>
+          <hr className="my-4 border-[#f9a825]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {user
+              .filter((u) => u.role === "postman")
+              .map((postman) => (
+                <div
+                  key={postman._id}
+                  className="bg-[#e3f2fd] shadow-lg rounded-xl p-3 flex items-center "
+                >
+                  <img
+                    src="../../../admin.png"
+                    alt="admin"
+                    className="w-16 h-16 rounded-full mr-4 border-4 border-[#1976d2] bg-white"
+                  />
+                  <div>
+                    <div className="font-semibold text-[#1976d2]">
+                      {postman.name}
+                    </div>
+                    <div className="text-sm text-gray-700">{postman.email}</div>
+                    <div className="text-sm text-gray-700">
+                      {postman.phoneNumber}
+                    </div>
+                    <div className="text-xs font-bold text-[#388e3c] mt-1">
+                      {postman.role}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+
         <div>
           <h1 className="mt-[100px] text-2xl font-bold text-center my-4 text-[#388e3c]">
             Customer Accounts

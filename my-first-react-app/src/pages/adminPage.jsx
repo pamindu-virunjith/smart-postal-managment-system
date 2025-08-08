@@ -1,5 +1,4 @@
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
@@ -14,6 +13,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import WelcomeAdmin from "../components/welcomePostman";
+import { FiHome } from "react-icons/fi";
 
 export default function AdminPage() {
 
@@ -58,6 +59,7 @@ export default function AdminPage() {
                 <>
                     <div className='h-full w-[300px] bg-red-200 rounded-xl shadow-lg p-4 flex flex-col mr-2 '>
                 <div className="h-[calc(100vw-50px)]">
+                    <Link to ="/admin/" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/" ? "bg-red-300" : ""}`} > <FiHome  className="mr-2"/> Home</Link>
                     <Link to ="/admin/users" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/users" ? "bg-red-300" : ""}`} > <FaUsers className="mr-2 text-blue-700"/> Users</Link>
                     <Link to ="/admin/parcel" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/parcel" ? "bg-red-300" : ""}`} > <MdOutlineWarehouse className="mr-2 text-green-500"/> Parcel</Link>
                     <Link to ="/admin/createaccount" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/createaccount" ? "bg-red-300" : ""}`} > <LiaFileInvoiceSolid className="mr-2 text-rose-600"/> Create Account</Link>
@@ -75,6 +77,7 @@ export default function AdminPage() {
                     <Route path="/createaccount" element={<CreateAdminAccount />} />
                     <Route path="/addparcel" element={<AddParcel />} />
                     <Route path="/editparcel/" element={<EditParcel />} />
+                    <Route path="/" element={<WelcomeAdmin />} /> 
                 </Routes>
             </div>
                 </>

@@ -103,8 +103,6 @@ export default function CreateAdminAccount() {
                         className="w-[400px] h-[40px] border border-gray-500 rounded-xl text-center m-[10px] bg-white mb-4"
                     >
                         <option value="" disabled>Select Role</option>
-                        <option value="admin">Admin</option>
-                        <option value="postman">Postman</option>
                         <option value="user">User</option>
                     </select>
                     <input name="password" value={formData.password} onChange={handleChange}
@@ -134,11 +132,12 @@ export default function CreateAdminAccount() {
                     Clear
                     </button>
                     <Link
-                            to={"/admin/"}
-                            className="w-[400px] h-[50px] bg-black text-white rounded-xl text-center mb-3 flex items-center justify-center"
-                        >
-                        Cancel
+                        to={"/postman/"}
+                        className="w-[400px] h-[50px] bg-black text-white rounded-xl text-center mb-3 flex items-center justify-center"
+                    >
+                    Cancel
                     </Link>
+
                 </div>
             </div>
         </div>

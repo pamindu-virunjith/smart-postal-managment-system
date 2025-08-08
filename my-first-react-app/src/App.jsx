@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import RegisterPage from './pages/registerPage'
 import AdminPage from './pages/adminPage'
 import Home from './pages/Home'
-import HomePage from './pages/homePage'
+import Postman from './pages/postman'
 
 function App() {
   
@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element= {<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/admin/*" element={<AdminPage/>} />
+        <Route path ="/postman/*" element={<Postman/>} />
       </Routes>
     </BrowserRouter>
   )

@@ -32,12 +32,23 @@ function LoginPage(){
             // Save token and user email to localStorage
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify({ email: user.email }));
+            localStorage.setItem("user", JSON.stringify({ name: user.name }));
 
+            console.log(user.role);
             // Redirect based on user role
-            if (user.role === "admin") {
-            navigate("/admin");
-            } else {
-            navigate("/home");
+            switch (user.role?.toLowerCase()) {
+                case "admin":
+                    navigate("/admin");
+                    break;
+                case "postman":
+                    navigate("/postman");
+                    break;
+                case "user":
+                    navigate("/home");
+                    break;
+                default:
+                    toast.error("Unknown role: " + user.role);
+                    break;
             }
 
         })
@@ -45,16 +56,12 @@ function LoginPage(){
             console.error("Login failed:", error);
             toast.error(error.response?.data?.message || "Login failed. Please try again.");
         });
-
-        
     }
 
     const handleClick = () => {
         setShowSpinner(true);
         handleLogin();
-    
     };
-
 
     return(
         <div className='w-full bg-white h-screen flex'>
@@ -104,7 +111,10 @@ function LoginPage(){
                             <Link to={"/Register"} className='cursor-pointer text-lg' style={{color:"yellow", textDecoration: "none"}}> Register</Link>
                         </span>
                     </p>
+                    
+                        
                 </div>
+
             </div>
 
        

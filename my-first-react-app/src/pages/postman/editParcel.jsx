@@ -9,7 +9,7 @@ export default function EditParcel() {
 
     if (!locationData.state) {
         toast.error("No parcel data found to edit.");
-        window.location.href = "/admin/parcel";
+        window.location.href = "/postman/parcel";
     }
 
     const [parcelID, setParcelID] = useState(locationData.state.parcelID);
@@ -42,7 +42,7 @@ export default function EditParcel() {
                 }
             );
             toast.success("Parcel edited successfully!");
-            navigate("/admin/parcel");
+            navigate("/postman/parcel");
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to edit parcel.");
             console.error(error);
@@ -62,6 +62,7 @@ export default function EditParcel() {
                     placeholder="Parcel ID"
                 />
                 <input
+                    disabled
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
@@ -69,6 +70,7 @@ export default function EditParcel() {
                     placeholder="Name"
                 />
                 <input
+                    disabled
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
@@ -76,16 +78,18 @@ export default function EditParcel() {
                     placeholder="E-mail"
                 />
                 <textarea
+                    disabled
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     className="w-[400px] h-[100px] border border-gray-500 rounded-xl text-center m-[10px]"
                     placeholder="Details"
                 />
                 <input
+                    disabled
                     value={estimateDate}
                     onChange={(e) => setEstimateDate(e.target.value)}
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
-                   
+                    
                 />
                 <select
                     value={status}
@@ -104,7 +108,7 @@ export default function EditParcel() {
                     Edit Parcel
                 </button>
                 <Link
-                    to={"/admin/parcel"}
+                    to={"/postman/parcel"}
                     className="w-[400px] h-[50px] bg-red-500 text-white rounded-xl text-center m-[10px] flex items-center justify-center"
                 >
                     Cancel
