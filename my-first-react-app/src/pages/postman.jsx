@@ -74,6 +74,7 @@ export default function Postman() {
                   <Route path="/parcel" element={<ParcelPage />} />
                   <Route path="/createaccount" element={<CreateAdminAccount />} />
                   <Route path="/editparcel/" element={<EditParcel />} />
+                  {/* <Route path="/selectlocation/" element={<SelectLocation />} /> */}
                 </Routes>
             </div>
                 </>

@@ -7,6 +7,7 @@ export default function AddParcel() {
     const [parcelID, setParcelID] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
     const [details, setDetails] = useState("");
     const [estimateDate, setEstimateDate] = useState("");
     const [status, setStatus] = useState("");
@@ -18,6 +19,7 @@ export default function AddParcel() {
             parcelID: parcelID,
             name: name,
             email: email,
+            address: address,
             details: details,
             estimateDate: estimateDate,
             status: status
@@ -69,6 +71,13 @@ export default function AddParcel() {
                     placeholder="E-mail"
                 />
                 <textarea
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-[400px] h-[70px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    type="text"
+                    placeholder="Address"
+                />
+                <textarea
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     className="w-[400px] h-[100px] border border-gray-500 rounded-xl text-center m-[10px]"
@@ -78,6 +87,7 @@ export default function AddParcel() {
                     value={estimateDate}
                     onChange={(e) => setEstimateDate(e.target.value)}
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    placeholder="Estimate Date"
                     type="date"
                 />
                 <select

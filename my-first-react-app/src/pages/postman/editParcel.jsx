@@ -15,6 +15,7 @@ export default function EditParcel() {
     const [parcelID, setParcelID] = useState(locationData.state.parcelID);
     const [name, setName] = useState(locationData.state.name);
     const [email, setEmail] = useState(locationData.state.email);
+    const [address, setAddress] = useState(locationData.state.address);
     const [details, setDetails] = useState(locationData.state.details);
     const [estimateDate, setEstimateDate] = useState(locationData.state.estimateDate);
     const [status, setStatus] = useState(locationData.state.status);
@@ -24,6 +25,7 @@ export default function EditParcel() {
             parcelID: parcelID,
             name: name,
             email: email,
+            address: address,
             details: details,
             estimateDate: estimateDate,
             status: status
@@ -76,6 +78,14 @@ export default function EditParcel() {
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
                     type="email"
                     placeholder="E-mail"
+                />
+                <textarea
+                    disabled
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-[400px] h-[70px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    type="text"
+                    placeholder="Address"
                 />
                 <textarea
                     disabled

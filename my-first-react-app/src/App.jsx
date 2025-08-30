@@ -6,6 +6,7 @@ import RegisterPage from './pages/registerPage'
 import AdminPage from './pages/adminPage'
 import Home from './pages/Home'
 import Postman from './pages/postman'
+import ScanQR from './pages/ScanQR'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/admin/*" element={<AdminPage/>} />
         <Route path ="/postman/*" element={<Postman/>} />
+        <Route path="/scan" element={<ScanQR />} />
       </Routes>
     </BrowserRouter>
   )

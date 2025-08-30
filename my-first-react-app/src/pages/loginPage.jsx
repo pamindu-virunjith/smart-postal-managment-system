@@ -31,8 +31,11 @@ function LoginPage(){
 
             // Save token and user email to localStorage
             localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify({ email: user.email }));
-            localStorage.setItem("user", JSON.stringify({ name: user.name }));
+            localStorage.setItem("user", JSON.stringify({
+                email: user.email,
+                name: user.name,
+                address: user.address
+            }));
 
             console.log(user.role);
             // Redirect based on user role

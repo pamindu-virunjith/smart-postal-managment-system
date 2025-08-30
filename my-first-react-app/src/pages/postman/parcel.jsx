@@ -11,6 +11,9 @@ export default function ParcelPage() {
     const [parcels, setParcels] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const address = storedUser?.address || "No Address";
+
 
     useEffect(() => {
         if (!loaded){
@@ -22,6 +25,8 @@ export default function ParcelPage() {
                 }
             })
             .then((response) => {
+                const filteredParcels = response.data.filter(parcel => parcel.address === address);
+                setParcels(filteredParcels);
                 console.log(response.data);
                 setParcels(response.data);
                 setLoaded(true)
@@ -48,15 +53,14 @@ export default function ParcelPage() {
 
     return (
         <div className="w-full h-full rounded-lg p-1 relative">
-            <Link to={"/admin/addparcel"} className="text-white bg-blue-500 hover:bg-blue-600 p-2 text-3xl rounded-full mb-4 flex items-center gap-2 absolute bottom-4 right-4">
-                <FaPlus />
-            </Link>
+           
             {loaded &&<table className="w-full">
                 <thead>
                     <tr className="text-center ">
                         <th className="p-2">Parcel ID</th>
                         <th className="p-2">Name</th>
                         <th className="p-2">E-mail</th>
+                        <th className="p-2">Address</th>
                         <th className="p-2">Details</th>
                         <th className="p-2">Estimate Date</th>
                         <th className="p-2">Status</th>
@@ -70,6 +74,7 @@ export default function ParcelPage() {
                                 <td className="p-2">{parcel.parcelID}</td>
                                 <td className="p-2">{parcel.name}</td>
                                 <td className="p-2">{parcel.email}</td>
+                                <td className="p-2">{parcel.address}</td>
                                 <td className="p-2">{parcel.details}</td>
                                 <td className="p-2">{new Date(parcel.estimateDate).toLocaleDateString()}</td>
                                 <td className="p-2">{parcel.status}</td>
