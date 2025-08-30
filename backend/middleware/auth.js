@@ -7,7 +7,7 @@ export default function authjwt(req,res,next){
     if (header != null){
         const token = header.replace("Bearer ", "");
         jwt.verify(token, "random123", (err, decoded) => {
-            console.log("Decoded token:", decoded);
+            // console.log("Decoded token:", decoded);
             if(decoded!=null){
                 req.user = decoded;
             } 

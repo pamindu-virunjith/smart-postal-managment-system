@@ -37,7 +37,8 @@ function LoginPage(){
                 address: user.address
             }));
 
-            console.log(user.role);
+            // console.log(user.role);
+            
             // Redirect based on user role
             switch (user.role?.toLowerCase()) {
                 case "admin":
@@ -58,6 +59,8 @@ function LoginPage(){
         .catch((error) => {
             console.error("Login failed:", error);
             toast.error(error.response?.data?.message || "Login failed. Please try again.");
+            setPassword("")
+            setShowSpinner(false);
         });
     }
 
@@ -92,7 +95,8 @@ function LoginPage(){
                             className='border border-white rounded-xl text-center bg-white mb-4' style={{ width: '400px', height: '50px' }}
                     />
                     <input onChange={(e) => setPassword(e.target.value)}
-                            type="password" 
+                            type="password"
+                            value={password}
                             placeholder='Password' 
                             className='border border-white rounded-xl text-center bg-white mb-6'style={{ width: '400px', height: '50px' }}
                     />
