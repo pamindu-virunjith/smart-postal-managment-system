@@ -50,6 +50,11 @@ export default function AdminPage() {
         }
     },[status])
 
+    const handleSignOut = () => {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+    };
+
 
     return (
         <div className='w-full h-screen flex bg-gray-100 p-2 '>
@@ -66,7 +71,12 @@ export default function AdminPage() {
                     <Link to ="/admin/createaccount" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/admin/createaccount" ? "bg-red-300" : ""}`} > <LiaFileInvoiceSolid className="mr-2 text-rose-600"/> Create Account</Link>
                 </div>
                 <div className="h-[50px]">
-                    <Link to ="/" className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl ${path === "/" ? "bg-red-300" : ""}`} > <VscSignOut className="mr-2 "/> Sign Out</Link>
+                    <button
+                                onClick={handleSignOut}
+                                className={`p-2 my-0.5 flex items-center text-xl hover:bg-red-300 rounded-xl w-full`}
+                            >
+                                <VscSignOut className="mr-2 "/> Sign Out
+                            </button>
                 </div>
             </div>
 
