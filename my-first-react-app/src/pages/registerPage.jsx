@@ -45,74 +45,158 @@ function RegisterPage() {
         });
     }
 
+    function handleGoogleRegister() {
+        // Implement Google OAuth registration here
+        console.log("Google register clicked");
+        // You can integrate with Google OAuth API here
+    }
+
     return (
-        <div className='w-full bg-white h-screen flex'>
-            {/* Left Side Image/Welcome */}
-            <div className="w-[50%] h-full flex items-center justify-center">
+        <div className='w-full h-screen flex relative overflow-hidden'>
+            {/* Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-red-900 via-pink-800 to-gray-800"></div>
+            
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0">
+                <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            </div>
+
+            {/* Left Side - Welcome Section */}
+            <div className="w-[50%] h-full flex items-center justify-center relative z-10">
                 <div className="w-full h-full flex flex-col">
                     <div className="w-full h-1/3 flex items-center justify-center">
-                        <h1 className="text-pink-500 text-6xl font-mono">Join Us</h1>
+                        <h1 className="text-white text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                            Join Us
+                        </h1>
                     </div>
                     <div className="w-full h-2/3 flex items-center justify-center">
-                        <img className="max-h-full" src="/image-17.webp" alt="Register Background" />
+                        <div className="text-center text-white space-y-6">
+                            <h2 className="text-4xl font-semibold mb-4">Start Tracking Today</h2>
+                            <p className="text-xl opacity-90 max-w-md mx-auto leading-relaxed">
+                                Create your account and never lose track of your packages again
+                            </p>
+                            <div className="grid grid-cols-1 gap-4 mt-8 max-w-sm mx-auto">
+                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
+                                    <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm">Free Account Setup</span>
+                                </div>
+                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
+                                    <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                                    <span className="text-sm">Unlimited Tracking</span>
+                                </div>
+                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
+                                    <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                                    <span className="text-sm">Email Notifications</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Right Side Form */}
-            <div className='w-[50%] h-full flex justify-center items-center'>
-                <div className="w-[500px] h-[650px] backdrop-blur-xl shadow-xl rounded-lg flex flex-col justify-center items-center bg-red-900 p-4">
-                    <div className="w-full h-[15%] flex justify-center">
-                        <h1 className='text-5xl font-bold text-green-400 font-mono italic mb-4'>Register</h1>
+            {/* Right Side - Register Form */}
+            <div className='w-[50%] h-full flex justify-center items-center relative z-10'>
+                <div className="w-[500px] backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl flex flex-col justify-center items-center p-8 relative">
+                    
+                    <div className="w-full text-center mb-6">
+                        <h1 className='text-5xl font-bold text-white mb-2'>Register</h1>
+                        <p className="text-white/80 text-lg">Create your account to get started</p>
                     </div>
 
                     {/* Form Fields */}
-                    <input name="name" value={formData.name} onChange={handleChange}
-                        type="text" placeholder='Name'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="email" value={formData.email} onChange={handleChange}
-                        type="email" placeholder='Email'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="address" value={formData.address} onChange={handleChange}
-                        type="text" placeholder='Address'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
-                        type="text" placeholder='Phone Number'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="password" value={formData.password} onChange={handleChange}
-                        type="password" placeholder='Password'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
-                        type="password" placeholder='Confirm Password'
-                        className='border border-white rounded-xl text-center bg-white mb-5'
-                        style={{ width: '400px', height: '40px' }}
-                    />
+                    <div className="w-full space-y-3 mb-6">
+                        <input 
+                            name="name" 
+                            value={formData.name} 
+                            onChange={handleChange}
+                            type="text" 
+                            placeholder='Name'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                        <input 
+                            name="email" 
+                            value={formData.email} 
+                            onChange={handleChange}
+                            type="email" 
+                            placeholder='Email'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                        <input 
+                            name="address" 
+                            value={formData.address} 
+                            onChange={handleChange}
+                            type="text" 
+                            placeholder='Address'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                        <input 
+                            name="phoneNumber" 
+                            value={formData.phoneNumber} 
+                            onChange={handleChange}
+                            type="text" 
+                            placeholder='Phone Number'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                        <input 
+                            name="password" 
+                            value={formData.password} 
+                            onChange={handleChange}
+                            type="password" 
+                            placeholder='Password'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                        <input 
+                            name="confirmPassword" 
+                            value={formData.confirmPassword} 
+                            onChange={handleChange}
+                            type="password" 
+                            placeholder='Confirm Password'
+                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                        />
+                    </div>
 
-                    {/* Submit Button */}
-                    <button onClick={handleRegister}
-                        className='bg-blue-500 hover:bg-blue-600 text-white rounded-xl'
-                        style={{ marginTop: '10px', width: '400px', height: '45px' }}
-                    >
-                        Register
-                    </button>
+                    <div className="w-full space-y-4">
+                        {/* Submit Button */}
+                        <button 
+                            onClick={handleRegister}
+                            className='w-full h-14 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg'
+                        >
+                            Register
+                        </button>
+
+                        {/* Divider */}
+                        <div className="flex items-center my-4">
+                            <div className="flex-1 border-t border-white/30"></div>
+                            <span className="px-4 text-white/70 text-sm">or</span>
+                            <div className="flex-1 border-t border-white/30"></div>
+                        </div>
+
+                        {/* Google Sign Up Button */}
+                        <button 
+                            onClick={handleGoogleRegister}
+                            className='w-full h-14 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3'
+                        >
+                            <svg className="w-5 h-5" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            <span>Sign up with Google</span>
+                        </button>
+                    </div>
 
                     {/* Login link */}
-                    <p className='text-white text-base mt-4'>
-                        Already have an account? &nbsp;
-                        <span>
-                            <Link to={"/"} className='cursor-pointer text-lg' style={{color:"yellow", textDecoration: "none"}}>Login</Link>
-                        </span>
-                    </p>
+                    <div className='text-center mt-6'>
+                        <p className='text-white/90 text-base'>
+                            Already have an account? &nbsp;
+                            <span>
+                                <Link to={"/"} className='text-pink-300 hover:text-pink-200 font-semibold transition-colors duration-300 hover:underline' style={{textDecoration: "none"}}>Login</Link>
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
