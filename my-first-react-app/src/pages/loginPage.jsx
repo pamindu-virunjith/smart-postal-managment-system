@@ -3,7 +3,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { VscLoading } from "react-icons/vsc";
-import React from "react";
+import { FcGoogle } from "react-icons/fc";
+import ForgetPassword from "./forgetPassword";
 
 function LoginPage(){
     const location = useLocation();
@@ -12,8 +13,16 @@ function LoginPage(){
     const [password, setPassword] = useState("")
     const [showSpinner, setShowSpinner] = useState(false);
     const navigate = useNavigate();
-
+    const [modalIsOpen, setIsOpen] = useState(false);
     
+    function openModal() {
+        setIsOpen(true);
+    }
+    
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     function handleLogin() {
         // console.log("Email:", email);
         // console.log("Password:", password);
@@ -92,24 +101,36 @@ function LoginPage(){
                             type="text"
                             value={email}
                             placeholder='Email' 
-                            className='border border-white rounded-xl text-center bg-white mb-4' style={{ width: '400px', height: '50px' }}
+                            className='rounded-xl text-center bg-white mb-4 focus:outline-none' style={{ width: '400px', height: '50px' }}
                     />
-                    <input onChange={(e) => setPassword(e.target.value)}
+                    <input onChange={(e) => setPassword(e.target.value)}  onKeyDown={(e) => {
+                            if (e.key === "Enter") handleClick();
+                        }}
                             type="password"
                             value={password}
                             placeholder='Password' 
-                            className='border border-white rounded-xl text-center bg-white mb-6'style={{ width: '400px', height: '50px' }}
+                            className='border border-white rounded-xl text-center bg-white mb-2 focus:outline-none' style={{ width: '400px', height: '50px' }}
                     />
+                    
+                    <div className="w-[400px] text-right">
+                        <button className="text-white mr-3 cursor-pointer focus:outline-none " onClick={openModal}>Forgot password</button>
+                    </div>
+
                     <button onClick={handleClick}
-                        className='bg-blue-500 hover:bg-blue-600 text-white rounded-xl mb-2' style={{ marginTop: '20px', width: '400px', height: '50px' }}
+                        className='bg-blue-500 hover:bg-blue-600 text-white text-xl rounded-xl mb-2 cursor-pointer focus:outline-none' style={{ marginTop: '20px', width: '400px', height: '50px' }}
                     >
                         Sign In
+                    </button>
+
+                    <button className='flex items-center justify-center border bg-white rounded-xl  mb-2 cursor-pointer border-none focus:outline-none' style={{ marginTop: '20px', width: '300px', height: '50px' }}>
+                        <FcGoogle className="text-3xl mr-2.5" /> Sign in with Google
                     </button>
                     {showSpinner && (
                         <div className="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-white/60">
                             <VscLoading className="text-[60px] animate-spin" />
                         </div>
                     )}
+
                     {/* Register */}
                     <p className='text-white text-base mt-4'>
                             Don't have an account?
@@ -118,13 +139,10 @@ function LoginPage(){
                             <Link to={"/Register"} className='cursor-pointer text-lg' style={{color:"yellow", textDecoration: "none"}}> Register</Link>
                         </span>
                     </p>
-                    
-                        
                 </div>
-
+                {/* Modal should be outside the button div for proper overlay */}
+                <ForgetPassword isOpen={modalIsOpen} onRequestClose={closeModal}/>
             </div>
-
-       
         </div>
     )
 } 
