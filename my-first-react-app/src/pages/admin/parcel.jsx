@@ -22,7 +22,7 @@ export default function ParcelPage() {
           },
         })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setParcels(response.data);
           setLoaded(true);
         });
