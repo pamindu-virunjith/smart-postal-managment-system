@@ -12,11 +12,15 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     padding: 0,
-    borderRadius: "15px",
+    borderRadius: "20px",
+    background:"black",
+    border:"none"
   },
-    overlay: {
-      backgroundColor: "rgba(0,0,0,0.3)",
-    }
+  overlay: {
+    backgroundColor: "rgba(0,0,0,0.2)",
+    backdropFilter: "blur(3px)",
+    WebkitBackdropFilter: "blur(4px)",
+  }
 };
 
 function ForgetPassword({ isOpen, onRequestClose }) {
@@ -75,11 +79,11 @@ function ForgetPassword({ isOpen, onRequestClose }) {
       >
         <div className="flex flex-col justify-center items-center">
           {otpSent ? (
-          <div>
+          <div className="w-[400px] h-[400px]  shadow-2xl rounded-xl flex flex-col justify-center items-center p-4 bg-gradient-to-br from-gray-800 via-red-800 to-pink-800">
             <input
               type="text"
               placeholder="Enter your OTP"
-              className="w-full h-[50px] px-4 mb-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl mb-5 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300"
               value={otp}
               onChange={(e) => {
                 setOtp(e.target.value);
@@ -88,7 +92,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
             <input
               type="password"
               placeholder="Enter New Password"
-              className="w-full h-[50px] px-4 mb-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl mb-5 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300"
               value={newPassword}
               onChange={(e) => {
                 setNewPassword(e.target.value);
@@ -97,14 +101,15 @@ function ForgetPassword({ isOpen, onRequestClose }) {
             <input
               type="password"
               placeholder="Confirm New Password"
-              className="w-full h-[50px] px-4 mb-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl mb-5 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300"
               value={confirmPassword}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
             />
-            <button
-              className="w-[50%] h-[50px] bg-blue-500 text-white font-bold rounded-lg mb-4 hover:bg-blue-400 transition-all duration-300 cursor-pointer"
+            <div className="flex space-x-4 mt-3">
+              <button
+              className="w-[150px] h-14 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer focus:outline-none"
               onClick={() => {
                 verifyOtp();
               }}
@@ -112,28 +117,29 @@ function ForgetPassword({ isOpen, onRequestClose }) {
               Verify OTP
             </button>
             <button
-              className="w-[50%] h-[50px] bg-gray-300 text-gray-700 font-bold rounded-lg mb-4 hover:bg-gray-400 transition-all duration-300 cursor-pointer"
+              className="w-[150px] h-14 bg-gray-300 text-gray-700 font-semibold rounded-xl mb-4 hover:bg-gray-400 transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg"
               onClick={() => {
                 setOtpSent(false);
               }}
             >
-              Cancle
+              Cancel
             </button>
+            </div>
           </div>
         ) : (
-          <div className="w-[400px] h-[400px] bg-white shadow-2xl rounded-xl flex flex-col justify-center items-center p-4">
-            <h1 className="text-4xl font-bold mb-15">Reset Password</h1>
+          <div className="w-[400px] h-[400px]  shadow-2xl rounded-xl flex flex-col justify-center items-center p-4 bg-gradient-to-br from-gray-800 via-red-800 to-pink-800">
+            <h1 className="text-4xl font-bold mb-15 text-white">Reset Password</h1>
             <input
               type="email"
               placeholder="Enter your email here..."
-              className="w-full h-[50px] px-4 mb-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-14 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl mb-5 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
             <button
-              className="w-[50%] h-[50px] bg-blue-500 text-white font-bold rounded-lg mb-4 hover:bg-blue-600 transition-all duration-300 focus:outline-none cursor-pointer"
+              className="w-[50%] h-14 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer focus:outline-none"
               onClick={() => {
                 sendOtp();
               }}
