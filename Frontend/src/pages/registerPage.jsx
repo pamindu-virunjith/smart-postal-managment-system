@@ -52,44 +52,40 @@ function RegisterPage() {
     }
 
     return (
-        <div className='w-full h-screen flex relative overflow-hidden'>
+        <div className='w-full min-h-screen flex flex-col lg:flex-row relative overflow-hidden'>
             {/* Gradient Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-red-900 via-pink-800 to-gray-800"></div>
             
             {/* Animated Background Elements */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 hidden lg:block">
                 <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                 <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
 
             {/* Left Side - Welcome Section */}
-            <div className="w-[50%] h-full flex items-center justify-center relative z-10">
-                <div className="w-full h-full flex flex-col">
-                    <div className="w-full h-1/3 flex items-center justify-center">
-                        <h1 className="text-white text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                            Join Us
-                        </h1>
-                    </div>
-                    <div className="w-full h-2/3 flex items-center justify-center">
-                        <div className="text-center text-white space-y-6">
-                            <h2 className="text-4xl font-semibold mb-4">Start Tracking Today</h2>
-                            <p className="text-xl opacity-90 max-w-md mx-auto leading-relaxed">
-                                Create your account and never lose track of your packages again
-                            </p>
-                            <div className="grid grid-cols-1 gap-4 mt-8 max-w-sm mx-auto">
-                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
-                                    <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
-                                    <span className="text-sm">Free Account Setup</span>
-                                </div>
-                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
-                                    <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                                    <span className="text-sm">Unlimited Tracking</span>
-                                </div>
-                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
-                                    <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                                    <span className="text-sm">Email Notifications</span>
-                                </div>
+            <div className="w-full lg:w-1/2 h-screen flex items-center justify-center relative z-10">
+                <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-8 lg:gap-12 py-8 lg:py-0">
+                    <h1 className="text-white text-4xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                        Join Us
+                    </h1>
+                    <div className="text-center text-white space-y-4 lg:space-y-6">
+                        <h2 className="text-2xl lg:text-4xl font-semibold mb-2 lg:mb-4">Start Tracking Today</h2>
+                        <p className="text-base lg:text-xl opacity-90 max-w-md mx-auto leading-relaxed px-4 lg:px-0">
+                            Create your account and never lose track of your packages again
+                        </p>
+                        <div className="grid grid-cols-1 gap-3 lg:gap-4 mt-6 lg:mt-8 max-w-sm mx-auto px-4 lg:px-0">
+                            <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3 transform hover:scale-105 transition-transform duration-300">
+                                <div className="w-2 lg:w-3 h-2 lg:h-3 bg-pink-400 rounded-full animate-pulse"></div>
+                                <span className="text-xs lg:text-sm">Free Account Setup</span>
+                            </div>
+                            <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3 transform hover:scale-105 transition-transform duration-300">
+                                <div className="w-2 lg:w-3 h-2 lg:h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                                <span className="text-xs lg:text-sm">Unlimited Tracking</span>
+                            </div>
+                            <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3 transform hover:scale-105 transition-transform duration-300">
+                                <div className="w-2 lg:w-3 h-2 lg:h-3 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                                <span className="text-xs lg:text-sm">Email Notifications</span>
                             </div>
                         </div>
                     </div>
@@ -97,23 +93,23 @@ function RegisterPage() {
             </div>
 
             {/* Right Side - Register Form */}
-            <div className='w-[50%] h-full flex justify-center items-center relative z-10'>
-                <div className="w-[500px] backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl flex flex-col justify-center items-center p-8 relative">
+            <div className="w-full lg:w-1/2 flex justify-center items-center relative z-10 px-4 py-6 lg:py-0 lg:px-0">
+                <div className="w-full max-w-[500px] backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl flex flex-col justify-center items-center p-4 lg:p-6 relative">
                     
-                    <div className="w-full text-center mb-6">
-                        <h1 className='text-5xl font-bold text-white mb-2'>Register</h1>
-                        <p className="text-white/80 text-lg">Create your account to get started</p>
+                    <div className="w-full text-center mb-4">
+                        <h1 className='text-2xl lg:text-3xl font-bold text-white mb-1'>Register</h1>
+                        <p className="text-white/80 text-xs lg:text-sm">Create your account to get started</p>
                     </div>
 
                     {/* Form Fields */}
-                    <div className="w-full space-y-3 mb-6">
+                    <div className="w-full space-y-2 mb-4 px-4 lg:px-0">
                         <input 
                             name="name" 
                             value={formData.name} 
                             onChange={handleChange}
                             type="text" 
                             placeholder='Name'
-                            className='w-full h-12 px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
+                            className='w-full h-9 lg:h-10 px-3 lg:px-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-xs lg:text-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all duration-300'
                         />
                         <input 
                             name="email" 
@@ -161,22 +157,22 @@ function RegisterPage() {
                         {/* Submit Button */}
                         <button 
                             onClick={handleRegister}
-                            className='w-full h-14 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg'
+                            className='w-full h-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg'
                         >
                             Register
                         </button>
 
                         {/* Divider */}
-                        <div className="flex items-center my-4">
+                        <div className="flex items-center my-3">
                             <div className="flex-1 border-t border-white/30"></div>
-                            <span className="px-4 text-white/70 text-sm">or</span>
+                            <span className="px-4 text-white/70 text-xs">or</span>
                             <div className="flex-1 border-t border-white/30"></div>
                         </div>
 
                         {/* Google Sign Up Button */}
                         <button 
                             onClick={handleGoogleRegister}
-                            className='w-full h-14 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3'
+                            className='w-full h-10 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3'
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -189,8 +185,8 @@ function RegisterPage() {
                     </div>
 
                     {/* Login link */}
-                    <div className='text-center mt-6'>
-                        <p className='text-white/90 text-base'>
+                    <div className='text-center mt-4'>
+                        <p className='text-white/90 text-xs'>
                             Already have an account? &nbsp;
                             <span>
                                 <Link to={"/"} className='text-pink-300 hover:text-pink-200 font-semibold transition-colors duration-300 hover:underline' style={{textDecoration: "none"}}>Login</Link>
