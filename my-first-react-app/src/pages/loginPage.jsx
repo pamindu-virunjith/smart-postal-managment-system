@@ -124,6 +124,8 @@ function LoginPage(){
                         <p className="text-base lg:text-xl opacity-90 max-w-md mx-auto leading-relaxed px-4 lg:px-0">
                             Get real-time updates on your deliveries from all major carriers in one place
                         </p>
+
+                        {/* description section */}
                         <div className="grid grid-cols-1 gap-4 mt-8 max-w-sm mx-auto">
                             <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-3 transform hover:scale-105 transition-transform duration-300">
                                 <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
@@ -138,6 +140,7 @@ function LoginPage(){
                                 <span className="text-sm">Instant Notifications</span>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
