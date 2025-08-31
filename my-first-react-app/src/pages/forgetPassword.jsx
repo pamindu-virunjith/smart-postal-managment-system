@@ -34,7 +34,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
 
   function sendOtp() {
     axios
-      .post(import.meta.env.VITE_BACKEND_URL + "/api/users/send-otp", {
+      .post(import.meta.env.VITE_BACKEND_URL + "/api/user/send-otp", {
         email: email,
       })
       .then((response) => {
@@ -50,7 +50,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
   function verifyOtp() {
     const numOtp = parseInt(otp, 10);
     axios
-      .post(import.meta.env.VITE_BACKEND_URL + "/api/users/reset-password", {
+      .post(import.meta.env.VITE_BACKEND_URL + "/api/user/reset-password", {
         email: email,
         otp: numOtp,
         newPassword: newPassword,

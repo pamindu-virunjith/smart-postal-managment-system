@@ -1,32 +1,34 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import LoginPage from './pages/loginPage'
-import { Toaster } from 'react-hot-toast'
-import RegisterPage from './pages/registerPage'
-import AdminPage from './pages/adminPage'
-import Home from './pages/Home'
-import Postman from './pages/postman'
-import ScanQR from './pages/ScanQR'
-import ForgetPassword from './pages/forgetPassword'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import LoginPage from "./pages/loginPage";
+import { Toaster } from "react-hot-toast";
+import RegisterPage from "./pages/registerPage";
+import AdminPage from "./pages/adminPage";
+import Home from "./pages/Home";
+import Postman from "./pages/postman";
+import ScanQR from "./pages/ScanQR";
+import ForgetPassword from "./pages/forgetPassword";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 // import Sample from './pages/sample'
 
 function App() {
-  
   return (
-    <BrowserRouter>
-    <Toaster position="top-center" />
-      <Routes path="/*">
-        <Route path="/*" element={<Home/>} />
-        <Route path="/" element= {<LoginPage/>} />
-        <Route path="/register" element={<RegisterPage/>} />
-        <Route path="/admin/*" element={<AdminPage/>} />
-        <Route path ="/postman/*" element={<Postman/>} />
-        <Route path="/scan" element={<ScanQR />} />
-        {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
-        {/* <Route path='/sample' element={<Sample/>}/> */}
-      </Routes>
-    </BrowserRouter>
-  )
+    <GoogleOAuthProvider clientId="402043730174-iaoh3h0qu5344bk29ntum7r0s34l225n.apps.googleusercontent.com">
+      <BrowserRouter>
+        <Toaster position="top-center" />
+        <Routes path="/*">
+          <Route path="/*" element={<Home />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/postman/*" element={<Postman />} />
+          <Route path="/scan" element={<ScanQR />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          {/* <Route path='/sample' element={<Sample/>}/> */}
+        </Routes>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
+  );
 }
 
-export default App
+export default App;
