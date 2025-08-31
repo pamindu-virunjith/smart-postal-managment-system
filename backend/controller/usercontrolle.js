@@ -1,10 +1,10 @@
 import User from "../modules/user.js";
 import bcrypt from "bcrypt"; 
-import jwd from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import OTP from "../modules/otp.js";
 import nodemailer from "nodemailer";
-// import axios from "axios"
+import axios from "axios"
 dotenv.config();
 
 // This function saves a new user to the database
@@ -75,7 +75,7 @@ export function loginUser(req, res){
                     isDisable: user.isDisable,
                     isEmailVerified: user.isEmailVerified
                 }
-                const token = jwd.sign(userData,process.env.JWT_KEY)
+                const token = jwt.sign(userData,process.env.JWT_KEY)
                 res.json({
                     message: "Login successfully",
                     token: token,
@@ -153,71 +153,65 @@ export function getUser(req,res){
   }
 }
 
-// export async function loginWithGoole(req,res){
-//   const token = req.body.accessToken
-//   if(token == null){
-//     res.status(400).json({
-//       message: "Access token is required."
-//     })
-//     return;
-//   }
-//   const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo",{
-//     headers:{
-//       Authorization : `Bearer ${token}`
-//     }
-//   })
-//   // console.log(response.data)
+export async function loginWithGoole(req,res){
+  const token = req.body.accessToken
+  if(token == null){
+    res.status(400).json({
+      message: "Access token is required."
+    })
+    return;
+  }
+  const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo",{
+    headers:{
+      Authorization : `Bearer ${token}`
+    }
+  })
+//   console.log(response.data)
 
-//   const user = await User.findOne({
-//     email: response.data.email
-//   })
+  const user = await User.findOne({
+    email: response.data.email
+  })
 
-//   if(user == null){
-//     const newUser = new User(
-//       {
-//         email: response.data.email,
-//         firstName: response.data.given_name,
-//         lastName: response.data.family_name,
-//         password:"googleUser",
-//         img:response.data.picture
-//       }
-//     )
-//     await newUser.save()
-//     const token = jwt.sign(
-//             {
-//               email: newUser.email,
-//               firstName : newUser.firstName,
-//               lastName: newUser.lastName,
-//               role: newUser.role,
-//               img : newUser.img
-//             },
-//             process.env.JWT_KEY
-//           )
+  if(user == null){
+    const newUser = new User(
+      {
+        email: response.data.email,
+        name: response.data.name,
+        password:"googleUser",
+      }
+    )
+    await newUser.save()
+    const token = jwt.sign(
+            {
+              email: newUser.email,
+              name: response.data.name,
+              role: newUser.role,
+            },
+            process.env.JWT_KEY
+          )
 
-//           res.json({
-//             message:"Login Successfully!!",
-//             token : token,
-//             role: newUser.role
-//           })
-//   }else{
-//     const token = jwt.sign(
-//             {
-//               email: user.email,
-//               firstName : user.firstName,
-//               lastName: user.lastName,
-//               role: user.role,
-//               img : user.img
-//             },
-//             process.env.JWT_KEY
-//           )
+          res.json({
+            message:"Login Successfully!!",
+            token : token,
+            role: newUser.role
+          })
+  }else{
+    const token = jwt.sign(
+            {
+              email: user.email,
+              name: response.data.name,
+              role: user.role,
+            },
+            process.env.JWT_KEY
+          )
 
-//           res.json({
-//             message:"Login Successfully!!",
-//             token : token,
-//             role: user.role
-//           })
-//   }
-// }
+          res.json({
+            message:"Login Successfully!!",
+            token : token,
+            role: user.role
+          })
+  }
+}
 
 const transport = nodemailer.createTransport({
   service: 'gmail',

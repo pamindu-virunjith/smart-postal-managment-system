@@ -77,7 +77,7 @@ function LoginPage(){
     const googleLogin  = useGoogleLogin({
         onSuccess: (response)=>{
             const accessToken = response.access_token
-            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login/google", {
+            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/user/login/google", {
                 accessToken: accessToken
             }).then((response)=>{
                 toast.success("Login Successful")
