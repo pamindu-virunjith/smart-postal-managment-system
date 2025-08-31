@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { VscLoading } from "react-icons/vsc";
 import { FcGoogle } from "react-icons/fc";
 import ForgetPassword from "./forgetPassword";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function LoginPage(){
     const location = useLocation();
@@ -73,11 +74,27 @@ function LoginPage(){
         });
     }
 
-    function handleGoogleLogin() {
-        // Implement Google OAuth login here
-        console.log("Google login clicked");
-        // You can integrate with Google OAuth API here
-    }
+    const googleLogin  = useGoogleLogin({
+        onSuccess: (response)=>{
+            const accessToken = response.access_token
+            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login/google", {
+                accessToken: accessToken
+            }).then((response)=>{
+                toast.success("Login Successful")
+                const token = response.data.token
+                localStorage.setItem("token", token)
+                if(response.data.role === "admin"){
+                    navigate("/admin")
+                }
+                else if(response.data.role === "postman"){
+                    navigate("/postman")
+                }
+                else{
+                    navigate("/home")
+                }
+            })
+        }
+    })
 
     const handleClick = () => {
         setShowSpinner(true);
@@ -97,9 +114,9 @@ function LoginPage(){
             </div>
 
             {/* Left Side - Welcome Section */}
-            <div className="w-full lg:w-1/2 min-h-[40vh] lg:h-screen flex items-center justify-center relative z-10">
+            <div className="w-full lg:w-1/2 min-h-[40vh] lg:h-screen flex items-center justify-center relative">
                 <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-8 lg:gap-12 py-8 lg:py-0">
-                    <h1 className="text-white text-4xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    <h1 className="text-white text-4xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">
                         Welcome Back
                     </h1>
                     <div className="text-center text-white space-y-4 lg:space-y-6">
@@ -126,7 +143,7 @@ function LoginPage(){
             </div>
 
             {/* Right Side - Login Form */}
-            <div className='w-full lg:w-1/2 flex justify-center items-center relative z-10 px-4 py-6 lg:py-0 lg:px-0'>
+            <div className='w-full lg:w-1/2 flex justify-center items-center relative  px-4 py-6 lg:py-0 lg:px-0'>
                 <div className="w-full max-w-[400px] backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-xl flex flex-col justify-center items-center p-4 lg:p-6 relative">
                     
                     {/* Loading Overlay */}
@@ -168,7 +185,7 @@ function LoginPage(){
                     <div className="w-full space-y-4">
                         <button 
                             onClick={handleClick}
-                            className='w-full h-9 lg:h-11 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none'
+                            className='w-full h-9 lg:h-11 bg-gradient-to-r cursor-pointer from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none'
                         >
                             Sign In
                         </button>
@@ -182,8 +199,8 @@ function LoginPage(){
 
                         {/* Google Sign In Button */}
                         <button 
-                            onClick={handleGoogleLogin}
-                            className='w-full h-9 lg:h-11 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 focus:outline-none'
+                            onClick={googleLogin}
+                            className='w-full h-9 lg:h-11 bg-white/20 backdrop-blur-sm cursor-pointer border border-white/30 hover:bg-white/30 text-white text-sm font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 focus:outline-none'
                         >
                             <FcGoogle className="text-xl lg:text-2xl"/>
                             <span>Sign in with Google</span>

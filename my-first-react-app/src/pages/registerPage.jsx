@@ -66,7 +66,7 @@ function RegisterPage() {
             {/* Left Side - Welcome Section */}
             <div className="w-full lg:w-1/2 min-h-[40vh] lg:h-screen flex items-center justify-center relative z-10">
                 <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-8 lg:gap-12 py-8 lg:py-0">
-                    <h1 className="text-white text-4xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    <h1 className="text-white text-4xl lg:text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">
                         Join Us
                     </h1>
                     <div className="text-center text-white space-y-4 lg:space-y-6">
