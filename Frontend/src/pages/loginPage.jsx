@@ -3,7 +3,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { VscLoading } from "react-icons/vsc";
-import React from "react";
+import { FcGoogle } from "react-icons/fc";
+import ForgetPassword from "./forgetPassword";
 
 function LoginPage(){
     const location = useLocation();
@@ -12,8 +13,16 @@ function LoginPage(){
     const [password, setPassword] = useState("")
     const [showSpinner, setShowSpinner] = useState(false);
     const navigate = useNavigate();
-
+    const [modalIsOpen, setIsOpen] = useState(false);
     
+    function openModal() {
+        setIsOpen(true);
+    }
+    
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     function handleLogin() {
         // console.log("Email:", email);
         // console.log("Password:", password);
