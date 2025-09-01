@@ -37,6 +37,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
   const [loading, setLoading] = useState(false);
  
 
+
  async function sendOtp() {
   try {
     const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/user/send-otp", {
@@ -49,6 +50,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
   } catch (error) {
     console.log(error);
     setEmail("");
+
   }
 }
 

@@ -213,6 +213,7 @@ export async function loginWithGoole(req,res){
   }
 }
 
+
 const transport = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
@@ -273,6 +274,7 @@ export async function sendOTP(req,res){
       res.json({
         message: "Otp send successfully",
         // OTP: rendomOTP
+
       })
     }
   })
@@ -317,5 +319,4 @@ export async function resetPassword(req, res) {
       message: "OTPs are not matching"
     })
   }
-
 }

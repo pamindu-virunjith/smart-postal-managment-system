@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { getAllUsers, getUser, getUserByEmail, loginUser, loginWithGoole, resetPassword, saveUser, sendOTP } from '../controller/usercontrolle.js';
 
 // Create a new router for user-related routes
@@ -13,6 +14,7 @@ userRouter.get('/email/:email', getUserByEmail)
 userRouter.get('/', getAllUsers)
 userRouter.get('/me',getUser)
 userRouter.post("/login/google", loginWithGoole)
+
 userRouter.post("/send-otp", sendOTP)
 userRouter.post("/reset-password", resetPassword)
 
