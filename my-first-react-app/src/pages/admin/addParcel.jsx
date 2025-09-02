@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -13,15 +13,70 @@ export default function AddParcel() {
     const [details, setDetails] = useState("");
     const [estimateDate, setEstimateDate] = useState("");
     const [status, setStatus] = useState("");
+    const [isGeneratingID, setIsGeneratingID] = useState(true);
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        generateParcelID();
+    }, []);
+
+    const generateParcelID = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            
+            // Fetch existing parcels to determine the next ID
+            const response = await axios.get(
+                import.meta.env.VITE_BACKEND_URL + "/api/parcel",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const existingParcels = response.data;
+            
+            // Extract parcel numbers from existing IDs and find the highest number
+            let highestNumber = 0;
+            existingParcels.forEach(parcel => {
+                if (parcel.parcelID && parcel.parcelID.startsWith('P')) {
+                    const numberPart = parseInt(parcel.parcelID.substring(1));
+                    if (!isNaN(numberPart) && numberPart > highestNumber) {
+                        highestNumber = numberPart;
+                    }
+                }
+            });
+
+            // Generate next ID with format P000
+            const nextNumber = highestNumber + 1;
+            const newParcelID = `P${nextNumber.toString().padStart(3, '0')}`;
+            
+            setParcelID(newParcelID);
+            setIsGeneratingID(false);
+        } catch (error) {
+            console.error("Error generating parcel ID:", error);
+            // Fallback: generate a random ID if API call fails
+            const randomNumber = Math.floor(Math.random() * 1000) + 1;
+            const fallbackID = `P${randomNumber.toString().padStart(3, '0')}`;
+            setParcelID(fallbackID);
+            setIsGeneratingID(false);
+            toast.error("Could not fetch existing parcels, generated random ID");
+        }
+    };
+
     async function handleAddParcel() {
+        // Validation
+        if (!parcelID || !name || !email || !address_line1 || !city || !district || !details || !status) {
+            toast.error("Please fill in all required fields.");
+            return;
+        }
+
         const parcel = {
             parcelID: parcelID,
             name: name,
             email: email,
-            address_line1: address_line1                                                                                                                                                        ,
+            address_line1: address_line1,
             city: city,
             district: district,
             details: details,
@@ -37,7 +92,7 @@ export default function AddParcel() {
                 parcel,
                 {
                     headers: {
-                        "Authorization": "Bearer " + token,
+                        "Authorization": `Bearer ${token}`,
                     },
                 }
             );
@@ -45,7 +100,7 @@ export default function AddParcel() {
             navigate("/admin/parcel");
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to add parcel.");
-            console.error(error);
+            console.error("Error adding parcel:", error);
         }
     }
 
@@ -53,13 +108,18 @@ export default function AddParcel() {
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
             <h1 className="text-4xl font-extrabold text-gray-800 mb-8 drop-shadow-lg">Add Parcel</h1>
             <div className="w-full max-w-lg shadow-2xl rounded-2xl flex flex-col items-center bg-white p-8">
-                <input
-                    value={parcelID}
-                    onChange={(e) => setParcelID(e.target.value)}
-                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-                    type="text"
-                    placeholder="Parcel ID"
-                />
+                <div className="w-full mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Parcel ID (Auto-generated)
+                    </label>
+                    <input
+                        value={isGeneratingID ? "Generating..." : parcelID}
+                        readOnly
+                        className="w-full h-12 border border-gray-300 rounded-lg px-4 bg-gray-100 text-gray-600 focus:outline-none cursor-not-allowed"
+                        type="text"
+                        placeholder="Auto-generated Parcel ID"
+                    />
+                </div>
                 <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
