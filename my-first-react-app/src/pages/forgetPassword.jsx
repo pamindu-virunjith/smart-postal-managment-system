@@ -38,40 +38,44 @@ function ForgetPassword({ isOpen, onRequestClose }) {
  
 
 
- async function sendOtp() {
+async function sendOtp() {
+  if (email === "") {
+    toast.error("Please Enter Your Email");
+    return;
+  }
   try {
-    const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/user/send-otp", {
-      email: email,
-    });
+    const response = await axios.post(
+      import.meta.env.VITE_BACKEND_URL + "/api/user/send-otp",
+      { email: email }
+    );
     setOtpSent(true);
     toast.success("OTP is successfully sent to your email");
     console.log(response.data);
-    setEmail("");
   } catch (error) {
-    console.log(error);
-    setEmail("");
     toast.error("Failed to send OTP");
+    setEmail("");
+    console.log(error);
   }
 }
 
-  function verifyOtp() {
-    const numOtp = parseInt(otp, 10);
-    axios
-      .post(import.meta.env.VITE_BACKEND_URL + "/api/user/reset-password", {
+async function verifyOtp() {
+  const numOtp = parseInt(otp, 10);
+  try {
+    const response = await axios.post(
+      import.meta.env.VITE_BACKEND_URL + "/api/user/reset-password",
+      {
         email: email,
         otp: numOtp,
         newPassword: newPassword,
-      })
-      .then((response) => {
-        toast.success("OTP verified Successfully!");
-        console.log(response.data);
-        setOtpSent(false);
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.error("Invalid OTP");
-      });
+      }
+    );
+    toast.success("OTP verified Successfully!");
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to verify OTP");
   }
+}
 
   return (
     <div>
