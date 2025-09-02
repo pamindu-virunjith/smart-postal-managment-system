@@ -50,7 +50,7 @@ function ForgetPassword({ isOpen, onRequestClose }) {
   } catch (error) {
     console.log(error);
     setEmail("");
-
+    toast.error("Failed to send OTP");
   }
 }
 
