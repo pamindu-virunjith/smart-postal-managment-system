@@ -2,18 +2,19 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
+import { FiHome, FiMenu, FiX, FiFileText } from "react-icons/fi"; 
 import '../App.css';
 import ParcelPage from "./admin/parcel";
 import AddParcel from "./admin/addParcel";
 import EditParcel from "./admin/editParcel";
 import UsersPage from "./admin/usersPage";
 import CreateAdminAccount from "./admin/createAccount";
+import ReportPage from "./admin/reportPage";
 import { VscSignOut } from "react-icons/vsc";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import WelcomeAdmin from "../components/welcomeAdmin.jsx";
-import { FiHome, FiMenu, FiX } from "react-icons/fi"; 
 import ScanQR from "./ScanQR.jsx";
 import EditUser from "./admin/EditUser.jsx";
 
@@ -136,6 +137,15 @@ export default function AdminPage() {
                             >
                                 <LiaFileInvoiceSolid className={`mr-3 transition-all duration-200 ${path === "/admin/createaccount" ? "text-white" : "text-rose-400 group-hover:text-rose-300"}`} /> Create Account
                             </Link>
+                            <Link
+                                to="/admin/reports"
+                                onClick={() => setMenuOpen(false)}
+                                className={`flex items-center px-4 py-3 rounded-xl font-semibold transition-all duration-200 group ${
+                                    path === "/admin/reports" ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg" : "text-gray-300 hover:bg-slate-700/50 hover:text-white"
+                                }`}
+                            >
+                                <FiFileText className={`mr-3 transition-all duration-200 ${path === "/admin/reports" ? "text-white" : "text-orange-400 group-hover:text-orange-300"}`} /> Reports
+                            </Link>
                         </nav>
                         
                         {/* Sign Out Button */}
@@ -165,6 +175,7 @@ export default function AdminPage() {
                             <Route path="/createaccount" element={<CreateAdminAccount />} />
                             <Route path="/addparcel" element={<AddParcel />} />
                             <Route path="/editparcel/" element={<EditParcel />} />
+                            <Route path="/reports" element={<ReportPage />} />
                             <Route path="/" element={<WelcomeAdmin />} />
                             <Route path="/scan" element={<ScanQR />} />
                             <Route path="/edituser" element={<EditUser />} />
