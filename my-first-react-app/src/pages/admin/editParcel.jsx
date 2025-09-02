@@ -47,7 +47,18 @@ export default function EditParcel() {
                     }
                 }
             );
-            toast.success("Parcel edited successfully!");
+
+            await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/api/parcel/send-update-email",
+                updatedParcel,
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            toast.success("Parcel edited & Email sent successfully!");
             navigate("/admin/parcel");
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to edit parcel.");

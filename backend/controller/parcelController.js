@@ -1,4 +1,5 @@
 import Parcel from "../modules/parcel.js";
+import nodemailer from "nodemailer";
 
 export function createParcel(req, res){
     if (req.user== null){
@@ -137,4 +138,183 @@ export function searchParcel(req, res) {
                 error: err.message
             });
         });
+}
+
+export async function emailParcelDetails(req,res){
+    const {
+    parcelID,
+    name,
+    email,
+    address_line1,
+    city,
+    district,
+    details,
+    estimateDate,
+    status,
+  } = req.body;
+
+  try{
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth:{
+        user: "postalmanagement64@gmail.com",
+        pass: "smdbujtchclirafc"
+      }
+    })
+
+    const subject = `📦 Parcel Confirmation - ${parcelID}`;
+
+     const message = `
+Hello ${name},
+
+Your parcel has been successfully registered in our system. Below are the details:
+
+📦 Parcel Information
+----------------------------
+Parcel ID     : ${parcelID}
+Name          : ${name}
+Email         : ${email}
+Address       : ${address_line1}
+City          : ${city}
+District      : ${district || "N/A"}
+Details       : ${details || "N/A"}
+Estimate Date : ${estimateDate || "Not Provided"}
+Status        : ${status}
+
+We will keep you updated as your parcel progresses.
+
+Thank you,
+Smart Postal Management System
+`;
+
+await transport.sendMail({
+      from: "postalmanagement64@gmail.com",
+      to: email,
+      subject: subject,
+      text: message, // plain text version
+      html: `
+        <h2>📦 Parcel Confirmation</h2>
+        <p>Hello <strong>${name}</strong>,</p>
+        <p>Your parcel has been successfully registered in our system. Below are the details:</p>
+        <table border="1" cellspacing="0" cellpadding="8">
+          <tr><td><b>Parcel ID</b></td><td>${parcelID}</td></tr>
+          <tr><td><b>Name</b></td><td>${name}</td></tr>
+          <tr><td><b>Email</b></td><td>${email}</td></tr>
+          <tr><td><b>Address</b></td><td>${address_line1}</td></tr>
+          <tr><td><b>City</b></td><td>${city}</td></tr>
+          <tr><td><b>District</b></td><td>${district}</td></tr>
+          <tr><td><b>Details</b></td><td>${details}</td></tr>
+          <tr><td><b>Estimate Date</b></td><td>${estimateDate || "Not Provided"}</td></tr>
+          <tr><td><b>Status</b></td><td>${status}</td></tr>
+        </table>
+        <p>We will keep you updated as your parcel progresses.</p>
+        <br>
+        <p>Thank you,<br>Smart Postal Management System</p>
+      `,
+    });
+
+    res.status(200).json({
+        message:"Email sent Successfully"
+    });
+
+  }catch(err){
+    console.log("Error sending Email:", err);
+    res.status(500).json({
+        message:"Error sending Email",
+        error: err.message
+    });
+  }
+}
+
+
+export async function emailUpdatedParcelDetails(req,res){
+    const {
+    parcelID,
+    name,
+    email,
+    address_line1,
+    city,
+    district,
+    details,
+    estimateDate,
+    status,
+  } = req.body;
+
+  try{
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth:{
+        user: "postalmanagement64@gmail.com",
+        pass: "smdbujtchclirafc"
+      }
+    })
+
+    const subject = `📦 Your Parcel Update - ${parcelID} | Status: ${status}`;
+
+     const message = `
+Hello ${name},
+
+Your parcel has been successfully updated in our system. Below are the updated details:
+
+📦 Parcel Information
+----------------------------
+Parcel ID     : ${parcelID}
+Name          : ${name}
+Email         : ${email}
+Address       : ${address_line1}
+City          : ${city}
+District      : ${district || "N/A"}
+Details       : ${details || "N/A"}
+Estimate Date : ${estimateDate || "Not Provided"}
+Status        : ${status}
+
+We will keep you updated as your parcel progresses.
+
+Thank you,
+Smart Postal Management System
+`;
+
+await transport.sendMail({
+      from: "postalmanagement64@gmail.com",
+      to: email,
+      subject: subject,
+      text: message, // plain text version
+      html: `
+        <h2>📦 Parcel Details has been changed</h2>
+        <p>Hello <strong>${name}</strong>,</p>
+        <p>Your parcel has been successfully updated in our system. Below are the updated details:</p>
+        <table border="1" cellspacing="0" cellpadding="8">
+          <tr><td><b>Parcel ID</b></td><td>${parcelID}</td></tr>
+          <tr><td><b>Name</b></td><td>${name}</td></tr>
+          <tr><td><b>Email</b></td><td>${email}</td></tr>
+          <tr><td><b>Address</b></td><td>${address_line1}</td></tr>
+          <tr><td><b>City</b></td><td>${city}</td></tr>
+          <tr><td><b>District</b></td><td>${district}</td></tr>
+          <tr><td><b>Details</b></td><td>${details}</td></tr>
+          <tr><td><b>Estimate Date</b></td><td>${estimateDate || "Not Provided"}</td></tr>
+          <tr><td><b>Status</b></td><td>${status}</td></tr>
+        </table>
+        <p>We will keep you updated as your parcel progresses.</p>
+        <br>
+        <p>Thank you,<br>Smart Postal Management System</p>
+      `,
+    });
+
+    res.status(200).json({
+        message:"Email sent Successfully"
+    });
+
+  }catch(err){
+    console.log("Error sending Email:", err);
+    res.status(500).json({
+        message:"Error sending Email",
+        error: err.message
+    });
+  }
 }

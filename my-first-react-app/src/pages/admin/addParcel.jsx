@@ -96,7 +96,18 @@ export default function AddParcel() {
                     },
                 }
             );
-            toast.success("Parcel added successfully!");
+
+            await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/api/parcel/send-email",
+                parcel,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                }
+            );
+
+            toast.success("Parcel added & Email sent successfully!");
             navigate("/admin/parcel");
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to add parcel.");
