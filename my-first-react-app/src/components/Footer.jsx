@@ -4,6 +4,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiLogoFacebook, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
+
 
 
 const Footer = () => {
@@ -54,32 +56,6 @@ const Footer = () => {
   return (
     <footer className="bg-red-900 text-white">
       {/* Email Signup Section */}
-      {/* <div className="bg-pink-800 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-pink-200">
-            See Incoming Mail in Your Email
-          </h2>
-          <p className="text-lg mb-8 text-pink-200">
-            Get real-time notifications about your packages and deliveries
-          </p>
-          <div className="flex justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyPress={(e) => handleKeyPress(e, handleSignUp)}
-              className="flex-1 px-4 py-3 bg-white/90 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-400 "
-            />
-            <button
-              onClick={handleSignUp}
-              className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 font-semibold rounded-r-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
-            >
-              Sign Up
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       {/* Main Footer Content */}
       <div className="py-12">
@@ -88,7 +64,11 @@ const Footer = () => {
             
             {/* Company Info */}
             <div className="text-center md:col-span-1">
-              <div className="text-2xl font-bold text-pink-300 mb-4">LOGO</div>
+              <div className="text-2xl font-bold text-pink-300 mb-4"><img
+                          src={logo}
+                          alt="Logo"
+                          className="h-10 w-10 mr-3 "
+                        /></div>
               <p className="text-purple-200 mb-4">
                 Your trusted partner for reliable mail and parcel tracking services across Sri Lanka and beyond.
               </p>
