@@ -44,7 +44,8 @@ function LoginPage(){
             localStorage.setItem("user", JSON.stringify({
                 email: user.email,
                 name: user.name,
-                address: user.address
+                address: user.address,
+                role: user.role
             }));
 
             // console.log(user.role);

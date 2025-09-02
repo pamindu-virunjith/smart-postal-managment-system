@@ -103,6 +103,13 @@ export default function ShowParcelDetails() {
                                 {parcel.status}
                             </span>
                         </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-600">Current Location</label>
+                            <p className="text-lg text-gray-800 bg-blue-50 px-3 py-2 rounded-lg">
+                                {parcel.currentLocation || 'Location not updated yet'}
+                            </p>
+                        </div>
                     </div>
 
                     {/* Address Information */}

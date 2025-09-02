@@ -183,6 +183,7 @@ export default function ShowParcels() {
                                 <th className="p-3 font-semibold">Address</th>
                                 <th className="p-3 font-semibold">City</th>
                                 <th className="p-3 font-semibold">District</th>
+                                <th className="p-3 font-semibold">Current Location</th>
                                 <th className="p-3 font-semibold">Details</th>
                                 <th className="p-3 font-semibold">Estimate Date</th>
                                 <th className="p-3 font-semibold">Status</th>
@@ -201,6 +202,11 @@ export default function ShowParcels() {
                                     <td className="p-3">{parcel.address_line1}</td>
                                     <td className="p-3">{parcel.city}</td>
                                     <td className="p-3">{parcel.district}</td>
+                                    <td className="p-3">
+                                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">
+                                            {parcel.currentLocation || 'Not Set'}
+                                        </span>
+                                    </td>
                                     <td className="p-3">{parcel.details}</td>
                                     <td className="p-3">
                                         {new Date(parcel.estimateDate).toLocaleDateString()}

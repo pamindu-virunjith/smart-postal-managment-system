@@ -7,6 +7,11 @@ import AdminPage from "./pages/adminPage";
 import Home from "./pages/Home";
 import Postman from "./pages/postman";
 import ScanQR from "./pages/ScanQR";
+import QRScanner from "./pages/QRScanner";
+import CameraQRScanner from "./pages/CameraQRScanner";
+import QRScannerHub from "./pages/QRScannerHub";
+import SimpleQRScanner from "./pages/SimpleQRScanner";
+import SocketTest from "./pages/SocketTest";
 
 // import ForgetPassword from "./pages/forgetPassword";
 
@@ -27,6 +32,11 @@ function App() {
           <Route path="/admin/*" element={<AdminPage />} />
           <Route path="/postman/*" element={<Postman />} />
           <Route path="/scan" element={<ScanQR />} />
+          <Route path="/qr-scanner" element={<QRScanner />} />
+          <Route path="/camera-scanner" element={<CameraQRScanner />} />
+          <Route path="/simple-scanner" element={<SimpleQRScanner />} />
+          <Route path="/qr-hub" element={<QRScannerHub />} />
+          <Route path="/socket-test" element={<SocketTest />} />
           {/* <Route path="/forget-password" element={<ForgetPassword />} /> */}
 
           {/* <Route path='/sample' element={<Sample/>}/> */}

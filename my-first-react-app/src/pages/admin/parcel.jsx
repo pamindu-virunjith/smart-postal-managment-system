@@ -170,6 +170,7 @@ export default function ParcelPage() {
                 <th className="p-4 font-bold text-blue-700">Address</th>
                 <th className="p-4 font-bold text-blue-700">City</th>
                 <th className="p-4 font-bold text-blue-700">District</th>
+                <th className="p-4 font-bold text-blue-700">Current Location</th>
                 <th className="p-4 font-bold text-blue-700">Details</th>
                 <th className="p-4 font-bold text-blue-700">Estimate Date</th>
                 <th className="p-4 font-bold text-blue-700">Status</th>
@@ -188,6 +189,11 @@ export default function ParcelPage() {
                   <td className="p-4">{parcel.address_line1}</td>
                   <td className="p-4">{parcel.city}</td>
                   <td className="p-4">{parcel.district}</td>
+                  <td className="p-4">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium">
+                      {parcel.currentLocation || 'Not Set'}
+                    </span>
+                  </td>
                   <td className="p-4">{parcel.details}</td>
                   <td className="p-4">
                     {new Date(parcel.estimateDate).toLocaleDateString()}

@@ -38,6 +38,16 @@ const parcelSchema = new mongoose.Schema({
     status: {
         type: String,
         default: 'Pending'
+    },
+    // store the current known location of the parcel (updated by scanner/admin/postman)
+    currentLocation: {
+        type: String,
+        default: ''
+    },
+    // timestamp of the last update (scanner/controller sets this)
+    updatedAt: {
+        type: Date,
+        default: Date.now
     }
 })
 

@@ -85,33 +85,66 @@ export function deleteParcel(req, res){
     });
 }
 
-export function updateParcel(req, res){
-    if (req.user== null){
+export async function updateParcel(req, res){
+    if (req.user == null) {
         res.status(403).json({
             message: "You need to login first"
         });
         return;
     }
-    if (req.user.role != "admin" && req.user.role != "postman"){
+    if (req.user.role != "admin" && req.user.role != "postman") {
         res.status(403).json({
             message: "You are not authorized to update a parcel"
         });
         return;
     }
 
-    Parcel.findOneAndUpdate(
-        { parcelID: req.params.parcelID },
-        req.body)
-    .then((parcel) => {
+    try {
+        console.log('[updateParcel] req.params.parcelID =', req.params.parcelID, 'by user =', req.user?.email || req.user?.name);
+        // Ensure updatedAt and allow updating currentLocation/status
+        const updates = {
+            ...req.body,
+            updatedAt: Date.now()
+        };
+
+        const updatedParcel = await Parcel.findOneAndUpdate(
+            { parcelID: req.params.parcelID },
+            updates,
+            { new: true }
+        );
+
+        if (!updatedParcel) {
+            console.warn('[updateParcel] Parcel not found for ID', req.params.parcelID);
+            return res.status(404).json({ message: 'Parcel not found' });
+        }
+
+        // Emit real-time update to admin panel via Socket.io (if available)
+        try {
+            const io = req.io;
+            if (io) {
+                io.to('adminPanel').emit('parcelLocationUpdated', {
+                    parcelID: updatedParcel.parcelID,
+                    newLocation: updatedParcel.currentLocation || updates.currentLocation,
+                    status: updatedParcel.status,
+                    updatedBy: req.user.email || req.user.name || 'system',
+                    timestamp: updatedParcel.updatedAt || new Date().toISOString()
+                });
+                console.log('[updateParcel] Emitted parcelLocationUpdated for', updatedParcel.parcelID);
+            }
+        } catch (emitErr) {
+            console.warn('Failed to emit parcelLocationUpdated event:', emitErr);
+        }
+
         res.json({
             message: "Parcel updated successfully",
+            data: updatedParcel
         });
-    }).catch((err) => {
+    } catch (err) {
         res.status(500).json({
-            message: "Error updating product",
+            message: "Error updating parcel",
             error: err.message
         });
-    });
+    }
 }
 
 // search parcel by ID

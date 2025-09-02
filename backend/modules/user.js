@@ -16,6 +16,13 @@ const userSchema = new mongoose.Schema ({
         required: true,
         default: "Unknown"
     },
+    postOfficeLocation: {
+        type: String,
+        required: function() {
+            return this.role === 'admin' || this.role === 'postman';
+        },
+        default: null
+    },
     role : {
         type : String,
         require : true,

@@ -65,6 +65,7 @@ const HomePage = () => {
           <div className='flex '><div className='w-[70px] font-bold'>Name:</div> <div>{parcel.name}</div></div>
           <div className='flex '><div className='w-[70px] font-bold'>E-mail:</div> <div>{parcel.email}</div></div>
           <div className='flex '><div className='w-[70px] font-bold'>Status:</div> <div>{parcel.status}</div></div>
+          <div className='flex '><div className='w-[70px] font-bold'>Location:</div> <div>{parcel.currentLocation || 'Not updated yet'}</div></div>
           <div className='flex '><div className='w-[70px] font-bold'>Est.Date:</div> <div>{new Date(parcel.estimateDate).toLocaleDateString()}</div></div>
        </div>
       </div>
