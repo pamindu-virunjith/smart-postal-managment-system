@@ -4,11 +4,13 @@ import AboutPage from "./AboutPage";
 import OrdersPage from "./OrdersPage";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ChatBot from "../components/ChatBot.jsx";
 
 function Home() {
   return (
     <div>
         <Header/>
+        <ChatBot />
         <div>
             <Routes path='/*'>
                 <Route path="/*" element={<HomePage />} />

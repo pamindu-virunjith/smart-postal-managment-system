@@ -54,7 +54,7 @@ const Footer = () => {
   return (
     <footer className="bg-red-900 text-white">
       {/* Email Signup Section */}
-      <div className="bg-pink-800 py-12">
+      {/* <div className="bg-pink-800 py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4 text-pink-200">
             See Incoming Mail in Your Email
@@ -79,7 +79,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer Content */}
       <div className="py-12">
