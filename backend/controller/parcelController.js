@@ -62,7 +62,7 @@ export function deleteParcel(req, res){
         });
         return;
     }
-    if (req.user.role != "admin"){
+    if (req.user.role != "admin" && req.user.role != "postman"){
         res.status(403).json({
             message: "You are not authorized to delete a parcel"
         });
@@ -91,7 +91,7 @@ export function updateParcel(req, res){
         });
         return;
     }
-    if (req.user.role != "admin"){
+    if (req.user.role != "admin" && req.user.role != "postman"){
         res.status(403).json({
             message: "You are not authorized to update a parcel"
         });

@@ -68,78 +68,100 @@ export default function CreateAdminAccount() {
 
 
     return (
-        <div className='w-full bg-white h-screen flex'>
-            <div className='w-full h-full flex justify-center items-center'>
-                <div className="w-[500px] h-[650px] backdrop-blur-xl shadow-xl rounded-lg flex flex-col justify-center items-center bg-red-900 p-4">
-                    <div className="w-full h-[15%] flex justify-center">
-                        <h1 className='text-5xl font-bold text-green-400 font-mono italic mb-4'>Create Account</h1>
-                    </div>
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+    <div className="w-full max-w-md bg-white/80 shadow-2xl rounded-2xl p-8 flex flex-col items-center">
+      <h1 className="text-4xl font-extrabold text-blue-700 mb-6 font-mono italic">
+        Create Account
+      </h1>
 
-                    {/* Form Fields */}
-                    <input name="name" value={formData.name} onChange={handleChange}
-                        type="text" placeholder='Name'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="email" value={formData.email} onChange={handleChange}
-                        type="email" placeholder='Email'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="address" value={formData.address} onChange={handleChange}
-                        type="text" placeholder='Address'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}
-                        type="text" placeholder='Phone Number'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <select
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
-                        className="w-[400px] h-[40px] border border-gray-500 rounded-xl text-center m-[10px] bg-white mb-4"
-                    >
-                        <option value="" disabled>Select Role</option>
-                        <option value="user">User</option>
-                    </select>
-                    <input name="password" value={formData.password} onChange={handleChange}
-                        type="password" placeholder='Password'
-                        className='border border-white rounded-xl text-center bg-white mb-4'
-                        style={{ width: '400px', height: '40px' }}
-                    />
-                    <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
-                        type="password" placeholder='Confirm Password'
-                        className='border border-white rounded-xl text-center bg-white mb-5'
-                        style={{ width: '400px', height: '40px' }}
-                    />
+      {/* Form Fields */}
+      <form className="w-full flex flex-col gap-4">
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          type="text"
+          placeholder="Name"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        <input
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          type="email"
+          placeholder="Email"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        <input
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          type="text"
+          placeholder="Address"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        <input
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={handleChange}
+          type="text"
+          placeholder="Phone Number"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-white"
+        >
+          <option value="" disabled>
+            Select Role
+          </option>
+          <option value="user">User</option>
+        </select>
+        <input
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          type="password"
+          placeholder="Password"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+        <input
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          type="password"
+          placeholder="Confirm Password"
+          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
 
-                    {/* Register Button */}
-                    <button onClick={handleRegister}
-                        className='bg-blue-500 hover:bg-blue-600 text-white rounded-xl'
-                        style={{ marginTop: '10px', width: '400px', height: '45px' }}
-                    >
-                        Register
-                    </button>
+        {/* Buttons */}
+        <button
+          type="button"
+          onClick={handleRegister}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-2 mt-2 transition"
+        >
+          Register
+        </button>
 
-                    <button
-                        onClick={handleClear}
-                        className="bg-gray-500 hover:bg-gray-600 text-white rounded-xl mt-2 mb-3"
-                        style={{ width: '400px', height: '45px' }}
-                    >
-                    Clear
-                    </button>
-                    <Link
-                        to={"/postman/"}
-                        className="w-[400px] h-[50px] bg-black text-white rounded-xl text-center mb-3 flex items-center justify-center"
-                    >
-                    Cancel
-                    </Link>
+        <button
+          type="button"
+          onClick={handleClear}
+          className="bg-gray-400 hover:bg-gray-500 text-white font-semibold rounded-lg py-2 transition"
+        >
+          Clear
+        </button>
 
-                </div>
-            </div>
-        </div>
-    );
+        <Link
+          to={"/postman/"}
+          className="bg-black hover:bg-gray-800 text-white font-semibold rounded-lg py-2 flex items-center justify-center transition"
+        >
+          Cancel
+        </Link>
+      </form>
+    </div>
+  </div>
+);
+
 }

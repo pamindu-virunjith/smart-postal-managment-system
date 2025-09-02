@@ -11,7 +11,7 @@ return (
             Welcome {userName}!
         </h1>
         <p className="text-lg text-gray-700 text-center max-w-xl">
-            You have successfully logged in as a <span className="font-semibold">Postman</span>.  
+            You have successfully logged in as a <span className="font</p>-semibold">Postman</span>.  
             From here, you can manage your assigned parcels, update their status,  
             or create accounts for new users.  
         </p>
