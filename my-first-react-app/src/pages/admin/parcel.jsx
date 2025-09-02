@@ -11,6 +11,14 @@ export default function ParcelPage() {
   const [parcels, setParcels] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [selectedParcel, setSelectedParcel] = useState(null);
+
+  // 🔍 Filter states
+  const [searchCity, setSearchCity] = useState("");
+  const [searchEmail, setSearchEmail] = useState("");
+  const [searchStatus, setSearchStatus] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+  const [searchParcelID, setSearchParcelID] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +32,10 @@ export default function ParcelPage() {
         .then((response) => {
           setParcels(response.data);
           setLoaded(true);
+        })
+        .catch(() => {
+          toast.error("Failed to fetch parcels");
+          setLoaded(true);
         });
     }
   }, [loaded]);
@@ -34,9 +46,7 @@ export default function ParcelPage() {
       await axios.delete(
         import.meta.env.VITE_BACKEND_URL + "/api/parcel/" + parcelID,
         {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          headers: { Authorization: "Bearer " + token },
         }
       );
       setLoaded(false);
@@ -49,71 +59,170 @@ export default function ParcelPage() {
     }
   }
 
+  // ✅ Function to convert parcel details into QR code JSON
   function generateQRData(parcel) {
     return JSON.stringify({
       parcelID: parcel.parcelID,
       name: parcel.name,
-      address: parcel.address,
+      address_line1: parcel.address_line1,
+      city: parcel.city,
+      district: parcel.district,
       details: parcel.details,
       estimateDate: parcel.estimateDate,
       status: parcel.status,
     });
   }
 
+  // ✅ Combined filters
+  const filteredParcels = parcels.filter((parcel) => {
+    const matchesParcelID = parcel.parcelID
+      ?.toLowerCase()
+      .includes(searchParcelID.toLowerCase());
+    const matchesCity = parcel.city
+      ?.toLowerCase()
+      .includes(searchCity.toLowerCase());
+    const matchesEmail = parcel.email
+      ?.toLowerCase()
+      .includes(searchEmail.toLowerCase());
+    const matchesStatus = searchStatus
+      ? parcel.status?.toLowerCase() === searchStatus.toLowerCase()
+      : true;
+    const matchesDate = searchDate
+      ? new Date(parcel.estimateDate).toLocaleDateString() ===
+        new Date(searchDate).toLocaleDateString()
+      : true;
+
+    return matchesCity && matchesEmail && matchesStatus && matchesDate && matchesParcelID;
+  });
+
   return (
-    <div className="w-full h-full rounded-lg p-2 relative">
-      {/* Floating Add Button */}
+    <div className="w-full h-full rounded-xl p-6 bg-gradient-to-br from-gray-100 to-blue-50 relative shadow-lg">
+      {/* ➕ Add Parcel Button */}
       <Link
         to={"/admin/addparcel"}
-        className="fixed bottom-4 right-4 text-white bg-blue-500 hover:bg-blue-600 p-3 text-2xl rounded-full shadow-lg z-50"
+        className="fixed bottom-8 right-8 shadow-xl text-white bg-blue-600 hover:bg-blue-700 p-5 text-3xl rounded-full flex items-center gap-2 transition-all duration-200 border-4 border-white"
+        title="Add Parcel"
       >
         <FaPlus />
       </Link>
 
-      {/* Desktop Table */}
-      {loaded && parcels.length > 0 && (
-        <div className="hidden lg:block overflow-x-auto rounded-lg shadow">
-          <table className="w-full border-collapse bg-white rounded-lg overflow-hidden">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr className="text-center">
-                <th className="p-3">Parcel ID</th>
-                <th className="p-3">Name</th>
-                <th className="p-3">E-mail</th>
-                <th className="p-3">Address</th>
-                <th className="p-3">Details</th>
-                <th className="p-3">Estimate Date</th>
-                <th className="p-3">Status</th>
-                <th className="p-3">Action</th>
+      {/* 🔍 Filters */}
+      <div className="flex justify-center gap-4 my-8 flex-wrap bg-white p-6 rounded-xl shadow-lg border border-blue-100">
+        <input
+          type="text"
+          placeholder="Search by Parcel ID..."
+          value={searchParcelID}
+          onChange={(e) => setSearchParcelID(e.target.value)}
+          className="border border-blue-200 p-3 rounded-lg focus:outline-blue-400 min-w-[180px] shadow-sm"
+        />
+        <input
+          type="text"
+          placeholder="Search by email..."
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+          className="border border-blue-200 p-3 rounded-lg focus:outline-blue-400 min-w-[180px] shadow-sm"
+        />
+        <input
+          type="text"
+          placeholder="Search by city..."
+          value={searchCity}
+          onChange={(e) => setSearchCity(e.target.value)}
+          className="border border-blue-200 p-3 rounded-lg focus:outline-blue-400 min-w-[180px] shadow-sm"
+        />
+        <select
+          value={searchStatus}
+          onChange={(e) => setSearchStatus(e.target.value)}
+          className="border border-blue-200 p-3 rounded-lg focus:outline-blue-400 min-w-[150px] shadow-sm"
+        >
+          <option value="">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+        <input
+          type="date"
+          value={searchDate}
+          onChange={(e) => setSearchDate(e.target.value)}
+          className="border border-blue-200 p-3 rounded-lg focus:outline-blue-400 min-w-[150px] shadow-sm"
+        />
+        <button
+          onClick={() => {
+            setSearchCity("");
+            setSearchEmail("");
+            setSearchStatus("");
+            setSearchDate("");
+            setSearchParcelID("");
+          }}
+          className="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg transition-all duration-200 font-semibold text-gray-700 shadow"
+        >
+          Clear
+        </button>
+      </div>
+
+      {loaded && (
+        <div className="overflow-x-auto mt-6">
+          <table className="w-full bg-white rounded-xl shadow-lg border border-blue-100">
+            <thead>
+              <tr className="text-center bg-blue-200">
+                <th className="p-4 font-bold text-blue-700">Parcel ID</th>
+                <th className="p-4 font-bold text-blue-700">Name</th>
+                <th className="p-4 font-bold text-blue-700">E-mail</th>
+                <th className="p-4 font-bold text-blue-700">Address</th>
+                <th className="p-4 font-bold text-blue-700">City</th>
+                <th className="p-4 font-bold text-blue-700">District</th>
+                <th className="p-4 font-bold text-blue-700">Details</th>
+                <th className="p-4 font-bold text-blue-700">Estimate Date</th>
+                <th className="p-4 font-bold text-blue-700">Status</th>
+                <th className="p-4 font-bold text-blue-700">Action</th>
               </tr>
             </thead>
             <tbody>
-              {parcels.map((parcel, index) => (
+              {filteredParcels.map((parcel, index) => (
                 <tr
                   key={index}
-                  className="text-center border-b border-gray-200 hover:bg-gray-50 transition"
+                  className="text-center border-b border-blue-100 hover:bg-blue-50 transition-all duration-150"
                 >
-                  <td className="p-2">{parcel.parcelID}</td>
-                  <td className="p-2">{parcel.name}</td>
-                  <td className="p-2">{parcel.email}</td>
-                  <td className="p-2">{parcel.address}</td>
-                  <td className="p-2">{parcel.details}</td>
-                  <td className="p-2">
+                  <td className="p-4">{parcel.parcelID}</td>
+                  <td className="p-4">{parcel.name}</td>
+                  <td className="p-4">{parcel.email}</td>
+                  <td className="p-4">{parcel.address_line1}</td>
+                  <td className="p-4">{parcel.city}</td>
+                  <td className="p-4">{parcel.district}</td>
+                  <td className="p-4">{parcel.details}</td>
+                  <td className="p-4">
                     {new Date(parcel.estimateDate).toLocaleDateString()}
                   </td>
-                  <td className="p-2">{parcel.status}</td>
-                  <td className="p-2">
-                    <div className="flex justify-center gap-3">
+                  <td className="p-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-white text-xs font-semibold shadow ${
+                        parcel.status === "Delivered"
+                          ? "bg-green-500"
+                          : parcel.status === "Shipped"
+                          ? "bg-yellow-500"
+                          : "bg-gray-500"
+                      }`}
+                    >
+                      {parcel.status}
+                    </span>
+                  </td>
+                  <td className="p-4">
+                    <div className="flex justify-center gap-2">
                       <MdOutlineDeleteOutline
                         onClick={() => deleteParcel(parcel.parcelID)}
-                        className="text-[22px] hover:text-red-600 cursor-pointer"
+                        className="text-[22px] hover:text-red-600 cursor-pointer transition-all duration-150"
+                        title="Delete"
                       />
                       <MdOutlineEdit
-                        onClick={() => navigate("/admin/editparcel/", { state: parcel })}
-                        className="text-[22px] hover:text-blue-600 cursor-pointer"
+                        onClick={() =>
+                          navigate("/admin/editparcel/", { state: parcel })
+                        }
+                        className="text-[22px] hover:text-blue-600 cursor-pointer transition-all duration-150"
+                        title="Edit"
                       />
                       <button
                         onClick={() => setSelectedParcel(parcel)}
-                        className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-sm"
+                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold transition-all duration-150 shadow"
+                        title="Show QR"
                       >
                         QR
                       </button>
@@ -126,78 +235,28 @@ export default function ParcelPage() {
         </div>
       )}
 
-      {/* Mobile Cards */}
-      {loaded && parcels.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
-          {parcels.map((parcel, index) => (
-            <div
-              key={index}
-              className="bg-white shadow rounded-lg p-4 border border-gray-300 hover:shadow-lg transition"
-            >
-              <div className="flex justify-between items-center">
-                <h2 className="font-bold text-lg text-gray-800">
-                  {parcel.name}
-                </h2>
-                <span className="text-sm bg-blue-100 text-blue-600 px-2 py-1 rounded">
-                  {parcel.status}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600 mt-1">
-                <strong>ID:</strong> {parcel.parcelID}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Email:</strong> {parcel.email}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Address:</strong> {parcel.address}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Details:</strong> {parcel.details}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Estimate:</strong>{" "}
-                {new Date(parcel.estimateDate).toLocaleDateString()}
-              </p>
-
-              {/* Actions */}
-              <div className="flex justify-end gap-3 mt-3">
-                <MdOutlineDeleteOutline
-                  onClick={() => deleteParcel(parcel.parcelID)}
-                  className="text-[22px] hover:text-red-600 cursor-pointer"
-                />
-                <MdOutlineEdit
-                  onClick={() => navigate("/admin/editparcel/", { state: parcel })}
-                  className="text-[22px] hover:text-blue-600 cursor-pointer"
-                />
-                <button
-                  onClick={() => setSelectedParcel(parcel)}
-                  className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm"
-                >
-                  QR
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Loader */}
       {!loaded && (
         <div className="w-full h-full flex items-center justify-center">
-          <VscLoading className="text-[60px] animate-spin" />
+          <VscLoading className="text-[60px] animate-spin text-blue-500" />
         </div>
       )}
 
-      {/* QR Modal */}
+      {loaded && filteredParcels.length === 0 && (
+        <p className="text-center text-gray-500 mt-10 text-lg font-semibold">
+          No parcels found for these filters.
+        </p>
+      )}
+
+      {/* ✅ QR Code Modal */}
       {selectedParcel && (
-        <div className="fixed bg-black/20 inset-0 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg text-center w-[90%] md:w-auto">
-            <h2 className="text-xl font-bold mb-4">Parcel QR Code</h2>
-            <QRCodeCanvas value={generateQRData(selectedParcel)} size={200} />
-            <div className="mt-4 flex gap-2 justify-center">
+        <div className="fixed inset-0 bg-red-100 bg-opacity-40 flex justify-center items-center z-50">
+          <div className="bg-white p-10 rounded-xl text-center shadow-2xl relative min-w-[340px] border-2 border-blue-200">
+            <h2 className="text-2xl font-bold mb-6 text-blue-600">Parcel QR Code</h2>
+            <QRCodeCanvas value={generateQRData(selectedParcel)} size={220} />
+            <div className="mt-8 flex gap-6 justify-center">
               <button
                 onClick={() => setSelectedParcel(null)}
-                className="bg-red-500 text-white px-4 py-2 rounded"
+                className="bg-red-500 hover:bg-red-600 text-white px-8 py-2 rounded-lg font-semibold transition-all duration-150 shadow"
               >
                 Close
               </button>
@@ -210,13 +269,13 @@ export default function ParcelPage() {
                   a.download = `parcel-${selectedParcel.parcelID}.png`;
                   a.click();
                 }}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-2 rounded-lg font-semibold transition-all duration-150 shadow"
               >
                 Download
               </button>
             </div>
           </div>
-        </div>
+        </div>  
       )}
     </div>
   );

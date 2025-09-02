@@ -320,3 +320,63 @@ export async function resetPassword(req, res) {
     })
   }
 }
+
+export function updateUser(req, res) {
+  if (req.user == null) {
+    res.status(403).json({
+      message: "You need to login first",
+    });
+    return;
+  }
+
+  if (req.user.role !== "admin") {
+    res.status(403).json({
+      message: "You are not authorized to update a user",
+    });
+    return;
+  }
+
+  // Assuming you're using MongoDB with Mongoose and User model
+  User.findByIdAndUpdate(req.params.userID, req.body, { new: true })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      res.json({
+        message: "User updated successfully",
+        user,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error updating user",
+        error: err.message,
+      });
+    });
+}
+
+export function deleteUser(req, res) {
+  if (req.user == null) {
+    return res.status(403).json({ message: "You need to login first" });
+  }
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "You are not authorized to delete a user" });
+  }
+
+  User.findByIdAndDelete(req.params.userID)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json({ message: "User deleted successfully" });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error deleting user",
+        error: err.message,
+      });
+    });
+}

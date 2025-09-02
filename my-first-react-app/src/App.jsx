@@ -11,6 +11,7 @@ import ScanQR from "./pages/ScanQR";
 // import ForgetPassword from "./pages/forgetPassword";
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import ChatBot from "./components/ChatBot";
 // import Sample from './pages/sample'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <GoogleOAuthProvider clientId="402043730174-iaoh3h0qu5344bk29ntum7r0s34l225n.apps.googleusercontent.com">
       <BrowserRouter>
         <Toaster position="top-center" />
+        <ChatBot />
         <Routes path="/*">
           <Route path="/*" element={<Home />} />
           <Route path="/" element={<LoginPage />} />

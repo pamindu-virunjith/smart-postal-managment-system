@@ -7,7 +7,9 @@ export default function AddParcel() {
     const [parcelID, setParcelID] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
+    const [address_line1, setAddress_line1] = useState("");
+    const [city, setCity] = useState("");
+    const [district, setDistrict] = useState("");
     const [details, setDetails] = useState("");
     const [estimateDate, setEstimateDate] = useState("");
     const [status, setStatus] = useState("");
@@ -19,7 +21,9 @@ export default function AddParcel() {
             parcelID: parcelID,
             name: name,
             email: email,
-            address: address,
+            address_line1: address_line1                                                                                                                                                        ,
+            city: city,
+            district: district,
             details: details,
             estimateDate: estimateDate,
             status: status
@@ -46,54 +50,67 @@ export default function AddParcel() {
     }
 
     return (
-        <div className="w-full h-full rounded-lg p-4 flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-bold text-center mb-4">Add Parcel</h1>
-            <div className="w-[500px] h-auto shadow-xl rounded-lg flex flex-col items-center justify-center bg-gray-200 p-4">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
+            <h1 className="text-4xl font-extrabold text-gray-800 mb-8 drop-shadow-lg">Add Parcel</h1>
+            <div className="w-full max-w-lg shadow-2xl rounded-2xl flex flex-col items-center bg-white p-8">
                 <input
                     value={parcelID}
                     onChange={(e) => setParcelID(e.target.value)}
-                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     type="text"
                     placeholder="Parcel ID"
                 />
                 <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     type="text"
                     placeholder="Name"
                 />
                 <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     type="email"
                     placeholder="E-mail"
                 />
                 <textarea
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="w-[400px] h-[70px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    value={address_line1}
+                    onChange={(e) => setAddress_line1(e.target.value)}
+                    className="w-full h-16 border border-gray-300 rounded-lg px-4 py-2 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                    placeholder="Address Line 1"
+                />
+                <input
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     type="text"
-                    placeholder="Address"
+                    placeholder="City"
+                />
+                <input
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                    type="text"
+                    placeholder="District"
                 />
                 <textarea
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
-                    className="w-[400px] h-[100px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-20 border border-gray-300 rounded-lg px-4 py-2 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     placeholder="Details"
                 />
                 <input
                     value={estimateDate}
                     onChange={(e) => setEstimateDate(e.target.value)}
-                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                     placeholder="Estimate Date"
                     type="date"
                 />
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[10px]"
+                    className="w-full h-12 border border-gray-300 rounded-lg px-4 mb-6 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 >
                     <option value="" disabled>Select status</option>
                     <option value="Pending">Pending</option>
@@ -103,13 +120,13 @@ export default function AddParcel() {
 
                 <button
                     onClick={handleAddParcel}
-                    className="w-[400px] h-[50px] bg-green-500 text-white rounded-xl text-center mt-[20px] cursor-pointer"
+                    className="w-full h-12 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg mb-4 transition duration-200 shadow-md"
                 >
                     Add Parcel
                 </button>
                 <Link
                     to={"/admin/parcel"}
-                    className="w-[400px] h-[50px] bg-red-500 text-white rounded-xl text-center m-[10px] flex items-center justify-center"
+                    className="w-full h-12 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg flex items-center justify-center transition duration-200 shadow-md"
                 >
                     Cancel
                 </Link>
