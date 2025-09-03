@@ -1,0 +1,20 @@
+# railway.toml
+
+[build]
+builder = "nixpacks"
+
+[phases.setup]
+# Use Node.js 22 and npm 11 (same as your local)
+nixPkgs = ["nodejs_22", "npm-11_x"]
+
+[phases.install]
+# Replace npm ci with npm install
+cmds = ["npm install"]
+
+[phases.build]
+# No extra build step needed for backend
+cmds = []
+
+[start]
+# Start your server (make sure package.json has "start": "node index.js")
+cmd = "npm start"
