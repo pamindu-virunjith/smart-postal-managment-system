@@ -114,7 +114,6 @@ export default function Postman() {
                     <main className="h-full bg-white/90 w-full rounded-2xl shadow-2xl p-8 overflow-y-auto border border-blue-200">
                         <Routes path="/*">
                             <Route path="/" element={<WelcomePostman />} />
-                            {/* <Route path="/parcel" element={<ParcelPage />} /> */}
                             <Route path="/createaccount" element={<CreateAdminAccount />} />
                             <Route path="/editparcel/" element={<EditParcel />} />
                             <Route path="/searchparcels" element={<SearchParcels />} />
