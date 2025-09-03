@@ -56,7 +56,7 @@ function RegisterPage() {
             {/* Gradient Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-red-900 via-pink-800 to-gray-800"></div>
             
-            {/* Animated Background Elements */}
+            
             <div className="absolute inset-0 hidden lg:block">
                 <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
