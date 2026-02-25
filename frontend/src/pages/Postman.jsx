@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import WelcomePostman from "../components/welcomePostman";
+import WelcomePostman from "../components/WelcomePostman";
 import { FiHome } from "react-icons/fi";
 
 
