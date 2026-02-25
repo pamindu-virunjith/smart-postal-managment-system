@@ -16,7 +16,7 @@ import { VscSignOut } from "react-icons/vsc";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import WelcomeAdmin from "../components/welcomeAdmin.jsx";
+import WelcomeAdmin from "../components/WelcomeAdmin.jsx";
 import ScanQR from "./ScanQR.jsx";
 import EditUser from "./admin/EditUser.jsx";
 
