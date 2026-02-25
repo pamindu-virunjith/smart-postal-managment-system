@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import RegisterPage from "./pages/registerPage";
 import AdminPage from "./pages/AdminPage";
 import Home from "./pages/Home";
-import Postman from "./pages/postman";
+import Postman from "./pages/Postman";
 import ScanQR from "./pages/ScanQR";
 import QRScanner from "./pages/QRScanner";
 import CameraQRScanner from "./pages/CameraQRScanner";
