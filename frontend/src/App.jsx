@@ -3,7 +3,7 @@ import "./App.css";
 import LoginPage from "./pages/loginPage";
 import { Toaster } from "react-hot-toast";
 import RegisterPage from "./pages/registerPage";
-import AdminPage from "./pages/adminPage";
+import AdminPage from "./pages/AdminPage";
 import Home from "./pages/Home";
 import Postman from "./pages/postman";
 import ScanQR from "./pages/ScanQR";
